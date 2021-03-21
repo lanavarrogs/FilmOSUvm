@@ -220,8 +220,11 @@ public class Login extends java.awt.Frame {
        String emptyString= "";
        String user = txtUser.getText();
        char[] password = txtPassword.getPassword();
-       User gerente = new User("Sebastian Gonzalez","1234");
-       String passGerente = gerente.getPassword();
+       Encode md5 = new Encode();
+       String passE = md5.encode("1234");
+       User gerente = new User("Sebastian Gonzalez",passE);
+       String passD = gerente.getPassword();
+       String passGerente = md5.decode(passD);
        
        if(emptyString.equals("") && emptyString.equals(new  String(password)) ){
             JOptionPane.showMessageDialog(null,"Los campos son obligatorios");
@@ -234,9 +237,6 @@ public class Login extends java.awt.Frame {
                JOptionPane.showMessageDialog(null,"La contraseña o el usuario es incorrecto");
            }
        }
-       
-       
-
        
        }catch(Exception e){
            System.out.println(e);

@@ -32,8 +32,18 @@ public class Home extends java.awt.Frame {
         pnlRoot = new javax.swing.JPanel();
         Header = new javax.swing.JPanel();
         pnlSide = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         pnlContent = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
 
+        setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
@@ -48,9 +58,51 @@ public class Home extends java.awt.Frame {
 
         pnlSide.setBackground(new java.awt.Color(246, 19, 64));
         pnlSide.setPreferredSize(new java.awt.Dimension(300, 100));
+        pnlSide.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel3.setBackground(new java.awt.Color(246, 19, 64));
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/notas.png"))); // NOI18N
+        jPanel3.add(jLabel4, java.awt.BorderLayout.CENTER);
+
+        pnlSide.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 590, 300, 140));
+
+        jPanel6.setBackground(new java.awt.Color(246, 19, 64));
+        jPanel6.setLayout(new java.awt.BorderLayout());
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/claqueta.png"))); // NOI18N
+        jPanel6.add(jLabel1, java.awt.BorderLayout.CENTER);
+
+        pnlSide.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 300, 140));
+
+        jPanel7.setBackground(new java.awt.Color(246, 19, 64));
+        jPanel7.setLayout(new java.awt.BorderLayout());
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/inmigracion.png"))); // NOI18N
+        jLabel3.setToolTipText("");
+        jPanel7.add(jLabel3, java.awt.BorderLayout.CENTER);
+
+        pnlSide.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 300, 140));
+
+        jPanel8.setBackground(new java.awt.Color(246, 19, 64));
+        jPanel8.setLayout(new java.awt.BorderLayout());
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/palomitas-de-maiz.png"))); // NOI18N
+        jPanel8.add(jLabel2, java.awt.BorderLayout.CENTER);
+
+        pnlSide.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 300, 140));
+
         pnlRoot.add(pnlSide, java.awt.BorderLayout.WEST);
 
         pnlContent.setBackground(new java.awt.Color(255, 255, 255));
+        pnlContent.setLayout(new java.awt.BorderLayout());
+        pnlContent.add(jPanel5, java.awt.BorderLayout.CENTER);
+
         pnlRoot.add(pnlContent, java.awt.BorderLayout.CENTER);
 
         add(pnlRoot, java.awt.BorderLayout.CENTER);
@@ -79,6 +131,15 @@ public class Home extends java.awt.Frame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Header;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel pnlContent;
     private javax.swing.JPanel pnlRoot;
     private javax.swing.JPanel pnlSide;

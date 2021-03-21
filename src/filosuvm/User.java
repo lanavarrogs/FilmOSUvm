@@ -4,27 +4,31 @@
  * and open the template in the editor.
  */
 package filosuvm;
+import java.security.MessageDigest;
+import javax.crypto.Cipher;
 
 /**
  *
  * @author luisn
  */
 public class User {
-    private String name;
+    private int uid;
+    private String username;
     private String password;
     
-    public User(String name,String password){
-        this.name = name;
+    public User(String username,String password){
+        this.username = username;
         this.password = password;
     }
     
-    
     public String getName(){
-        return name;
+        return username;
     }
     
     public String getPassword(){
         return password;
     }
+    
+    
     
 }
