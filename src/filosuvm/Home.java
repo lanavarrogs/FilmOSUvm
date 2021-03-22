@@ -5,6 +5,12 @@
  */
 package filosuvm;
 
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Image;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 /**
@@ -19,8 +25,10 @@ public class Home extends java.awt.Frame {
     public Home() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        btnClose.setCursor(new Cursor(HAND_CURSOR));
+        getMovies();
+        pack();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,19 +37,36 @@ public class Home extends java.awt.Frame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton7 = new javax.swing.JButton();
         pnlRoot = new javax.swing.JPanel();
         Header = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        btnClose = new javax.swing.JButton();
         pnlSide = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        Reports = new javax.swing.JPanel();
+        btnReport = new javax.swing.JButton();
+        Movies = new javax.swing.JPanel();
+        btnMovie = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        pnlCandy = new javax.swing.JPanel();
+        btnCandy = new javax.swing.JButton();
         pnlContent = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
+        MoviePanel = new javax.swing.JPanel();
+        bntMovie1 = new javax.swing.JButton();
+        bntMovie2 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        jButton16 = new javax.swing.JButton();
+        jButton17 = new javax.swing.JButton();
+        CandyPanel = new javax.swing.JPanel();
+        ReportPanel = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+
+        jButton7.setText("jButton7");
 
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -50,58 +75,122 @@ public class Home extends java.awt.Frame {
             }
         });
 
+        pnlRoot.setPreferredSize(new java.awt.Dimension(1500, 1080));
         pnlRoot.setLayout(new java.awt.BorderLayout());
 
         Header.setBackground(new java.awt.Color(28, 34, 43));
         Header.setPreferredSize(new java.awt.Dimension(100, 60));
+        Header.setLayout(new java.awt.BorderLayout());
+
+        jPanel1.setBackground(new java.awt.Color(28, 34, 43));
+        jPanel1.setPreferredSize(new java.awt.Dimension(200, 100));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnClose.setBackground(new java.awt.Color(28, 34, 43));
+        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/delete_32px.png"))); // NOI18N
+        btnClose.setBorder(null);
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 80, 60));
+
+        Header.add(jPanel1, java.awt.BorderLayout.LINE_END);
+
         pnlRoot.add(Header, java.awt.BorderLayout.PAGE_START);
 
         pnlSide.setBackground(new java.awt.Color(246, 19, 64));
         pnlSide.setPreferredSize(new java.awt.Dimension(300, 100));
         pnlSide.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel3.setBackground(new java.awt.Color(246, 19, 64));
-        jPanel3.setLayout(new java.awt.BorderLayout());
+        Reports.setBackground(new java.awt.Color(246, 19, 64));
+        Reports.setLayout(new java.awt.BorderLayout());
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/notas.png"))); // NOI18N
-        jPanel3.add(jLabel4, java.awt.BorderLayout.CENTER);
+        btnReport.setBackground(new java.awt.Color(246, 19, 64));
+        btnReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/notas.png"))); // NOI18N
+        btnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportActionPerformed(evt);
+            }
+        });
+        Reports.add(btnReport, java.awt.BorderLayout.CENTER);
 
-        pnlSide.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 590, 300, 140));
+        pnlSide.add(Reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 590, 300, 140));
 
-        jPanel6.setBackground(new java.awt.Color(246, 19, 64));
-        jPanel6.setLayout(new java.awt.BorderLayout());
+        Movies.setBackground(new java.awt.Color(246, 19, 64));
+        Movies.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/claqueta.png"))); // NOI18N
-        jPanel6.add(jLabel1, java.awt.BorderLayout.CENTER);
+        btnMovie.setBackground(new java.awt.Color(246, 19, 64));
+        btnMovie.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/claqueta.png"))); // NOI18N
+        btnMovie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMovieActionPerformed(evt);
+            }
+        });
+        Movies.add(btnMovie, java.awt.BorderLayout.CENTER);
 
-        pnlSide.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 300, 140));
+        pnlSide.add(Movies, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 300, 140));
 
         jPanel7.setBackground(new java.awt.Color(246, 19, 64));
         jPanel7.setLayout(new java.awt.BorderLayout());
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/inmigracion.png"))); // NOI18N
-        jLabel3.setToolTipText("");
-        jPanel7.add(jLabel3, java.awt.BorderLayout.CENTER);
+        jButton3.setBackground(new java.awt.Color(246, 19, 64));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/inmigracion.png"))); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jButton3, java.awt.BorderLayout.CENTER);
 
         pnlSide.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 300, 140));
 
-        jPanel8.setBackground(new java.awt.Color(246, 19, 64));
-        jPanel8.setLayout(new java.awt.BorderLayout());
+        pnlCandy.setBackground(new java.awt.Color(246, 19, 64));
+        pnlCandy.setLayout(new java.awt.BorderLayout());
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/palomitas-de-maiz.png"))); // NOI18N
-        jPanel8.add(jLabel2, java.awt.BorderLayout.CENTER);
+        btnCandy.setBackground(new java.awt.Color(246, 19, 64));
+        btnCandy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/palomitas-de-maiz.png"))); // NOI18N
+        btnCandy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCandyActionPerformed(evt);
+            }
+        });
+        pnlCandy.add(btnCandy, java.awt.BorderLayout.CENTER);
 
-        pnlSide.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 300, 140));
+        pnlSide.add(pnlCandy, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 300, 140));
 
         pnlRoot.add(pnlSide, java.awt.BorderLayout.WEST);
 
         pnlContent.setBackground(new java.awt.Color(255, 255, 255));
-        pnlContent.setLayout(new java.awt.BorderLayout());
-        pnlContent.add(jPanel5, java.awt.BorderLayout.CENTER);
+        pnlContent.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        MoviePanel.setBackground(new java.awt.Color(255, 255, 255));
+        MoviePanel.setLayout(new java.awt.GridLayout(3, 3, 5, 5));
+
+        bntMovie1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntMovie1ActionPerformed(evt);
+            }
+        });
+        MoviePanel.add(bntMovie1);
+        MoviePanel.add(bntMovie2);
+
+        jButton12.setActionCommand("");
+        MoviePanel.add(jButton12);
+        MoviePanel.add(jButton11);
+        MoviePanel.add(jButton15);
+        MoviePanel.add(jButton13);
+        MoviePanel.add(jButton14);
+        MoviePanel.add(jButton16);
+
+        jButton17.setActionCommand("");
+        MoviePanel.add(jButton17);
+
+        pnlContent.add(MoviePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1620, 1020));
+        pnlContent.add(CandyPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1620, 1020));
+        pnlContent.add(ReportPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1620, 1020));
+        pnlContent.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1620, 1020));
 
         pnlRoot.add(pnlContent, java.awt.BorderLayout.CENTER);
 
@@ -109,13 +198,82 @@ public class Home extends java.awt.Frame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    
+    public void getMovies(){
+    
+        String []list = {
+            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img1.jpg",
+            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img2.jpg",
+            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img3.jpg",
+            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img4.jpg",
+            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img5.jpg",
+            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img6.jpg",
+            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img7.jpg",
+            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img8.jpg",
+            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img9.jpg",
+            
+        };
+        
+        
+        for(int i =0; i<list.length;i++){
+               reziseImage(list[i],i);
+        }
+        
+        
+    }
+    
+    
+    public void reziseImage(String src,int index){
+        Component []components = MoviePanel.getComponents();
+        ImageIcon icon = new ImageIcon(new ImageIcon(src).getImage().getScaledInstance(bntMovie1.getWidth(),bntMovie1.getHeight(), Image.SCALE_SMOOTH));
+        if(components[index] instanceof JButton){
+            JButton button = (JButton) components[index];
+            button.setIcon(icon);
+        }
+    }
     /**
      * Exit the Application
      */
     private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
         System.exit(0);
     }//GEN-LAST:event_exitForm
+
+    private void btnMovieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovieActionPerformed
+        MoviePanel.setVisible(true);
+        CandyPanel.setVisible(false);
+        jPanel11.setVisible(false);
+        ReportPanel.setVisible(false);
+    }//GEN-LAST:event_btnMovieActionPerformed
+
+    private void btnCandyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCandyActionPerformed
+        MoviePanel.setVisible(false);
+        CandyPanel.setVisible(true);
+        jPanel11.setVisible(false);
+        ReportPanel.setVisible(false);
+    }//GEN-LAST:event_btnCandyActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        MoviePanel.setVisible(false);
+        CandyPanel.setVisible(false);
+        jPanel11.setVisible(true);
+        ReportPanel.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
+        MoviePanel.setVisible(false);
+        CandyPanel.setVisible(false);
+        jPanel11.setVisible(false);
+        ReportPanel.setVisible(true);
+    }//GEN-LAST:event_btnReportActionPerformed
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnCloseActionPerformed
+
+    private void bntMovie1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntMovie1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bntMovie1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,16 +288,31 @@ public class Home extends java.awt.Frame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel CandyPanel;
     private javax.swing.JPanel Header;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel MoviePanel;
+    private javax.swing.JPanel Movies;
+    private javax.swing.JPanel ReportPanel;
+    private javax.swing.JPanel Reports;
+    private javax.swing.JButton bntMovie1;
+    private javax.swing.JButton bntMovie2;
+    private javax.swing.JButton btnCandy;
+    private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnMovie;
+    private javax.swing.JButton btnReport;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
+    private javax.swing.JButton jButton16;
+    private javax.swing.JButton jButton17;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel pnlCandy;
     private javax.swing.JPanel pnlContent;
     private javax.swing.JPanel pnlRoot;
     private javax.swing.JPanel pnlSide;

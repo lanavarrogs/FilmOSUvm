@@ -41,7 +41,7 @@ public class Login extends java.awt.Frame {
         btnMaxim = new javax.swing.JPanel();
         maximize = new javax.swing.JLabel();
         btnClose = new javax.swing.JPanel();
-        close = new javax.swing.JLabel();
+        close = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         pnlSidee = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -49,11 +49,10 @@ public class Login extends java.awt.Frame {
         pnlLogin = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtUser = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        txtUser = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
 
@@ -96,15 +95,17 @@ public class Login extends java.awt.Frame {
         btnClose.setBackground(new java.awt.Color(28, 34, 43));
         btnClose.setLayout(new java.awt.BorderLayout());
 
+        close.setBackground(new java.awt.Color(28, 34, 43));
         close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/delete_32px.png"))); // NOI18N
-        close.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                closeMouseClicked(evt);
+        close.setBorder(null);
+        close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeActionPerformed(evt);
             }
         });
         btnClose.add(close, java.awt.BorderLayout.CENTER);
 
-        iconstoolbar.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, 70, 60));
+        iconstoolbar.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, 60, 60));
 
         pnlHeader.add(iconstoolbar, java.awt.BorderLayout.LINE_END);
 
@@ -131,41 +132,38 @@ public class Login extends java.awt.Frame {
         pnlLogin.setBackground(new java.awt.Color(246, 19, 64));
         pnlLogin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Usuario");
-        pnlLogin.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, -1, -1));
+        pnlLogin.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Contraseña");
-        pnlLogin.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 490, -1, -1));
+        pnlLogin.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 500, -1, -1));
 
-        jTextField3.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField3.setBorder(null);
-        jTextField3.setOpaque(false);
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
-        pnlLogin.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 330, 20));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/icons8-user-64.png"))); // NOI18N
-        jLabel3.setPreferredSize(new java.awt.Dimension(64, 64));
-        pnlLogin.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, -1, -1));
-        pnlLogin.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 450, 10));
-        pnlLogin.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 570, 460, 10));
-
+        txtUser.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtUser.setForeground(new java.awt.Color(255, 255, 255));
         txtUser.setBorder(null);
         txtUser.setOpaque(false);
-        pnlLogin.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, 450, -1));
+        txtUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserActionPerformed(evt);
+            }
+        });
+        pnlLogin.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 560, 20));
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/icons8-user-64.png"))); // NOI18N
+        jLabel3.setPreferredSize(new java.awt.Dimension(64, 64));
+        pnlLogin.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, -1, -1));
+        pnlLogin.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 380, 560, 10));
+        pnlLogin.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 590, 570, 10));
+
+        txtPassword.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtPassword.setForeground(new java.awt.Color(255, 255, 255));
         txtPassword.setBorder(null);
         txtPassword.setOpaque(false);
-        pnlLogin.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 550, 460, -1));
+        pnlLogin.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 560, 570, 30));
 
         btnLogin.setBackground(new java.awt.Color(28, 34, 43));
         btnLogin.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
@@ -181,7 +179,7 @@ public class Login extends java.awt.Frame {
                 btnLoginActionPerformed(evt);
             }
         });
-        pnlLogin.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 640, 470, 60));
+        pnlLogin.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 730, 590, 60));
 
         pnlContent.add(pnlLogin, java.awt.BorderLayout.CENTER);
 
@@ -207,13 +205,9 @@ public class Login extends java.awt.Frame {
        
     }//GEN-LAST:event_maximizeFocusGained
 
-    private void closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_closeMouseClicked
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtUserActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
     try{
@@ -246,6 +240,10 @@ public class Login extends java.awt.Frame {
     private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
         btnLogin.setCursor(new Cursor(HAND_CURSOR));
     }//GEN-LAST:event_btnLoginMouseEntered
+
+    private void closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_closeActionPerformed
     
 
     
@@ -265,7 +263,7 @@ public class Login extends java.awt.Frame {
     private javax.swing.JPanel btnClose;
     private javax.swing.JButton btnLogin;
     private javax.swing.JPanel btnMaxim;
-    private javax.swing.JLabel close;
+    private javax.swing.JButton close;
     private javax.swing.JPanel iconstoolbar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -274,7 +272,6 @@ public class Login extends java.awt.Frame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel maximize;
     private javax.swing.JPanel pnlContent;
     private javax.swing.JPanel pnlHeader;
