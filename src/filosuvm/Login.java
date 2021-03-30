@@ -10,7 +10,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
+import java.sql.*;
 /**
  *
  * @author luisn
@@ -163,6 +163,11 @@ public class Login extends java.awt.Frame {
         txtPassword.setForeground(new java.awt.Color(255, 255, 255));
         txtPassword.setBorder(null);
         txtPassword.setOpaque(false);
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
         pnlLogin.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 560, 570, 30));
 
         btnLogin.setBackground(new java.awt.Color(28, 34, 43));
@@ -210,8 +215,22 @@ public class Login extends java.awt.Frame {
     }//GEN-LAST:event_txtUserActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-    try{
-       String emptyString= "";
+
+
+       try{
+         
+       Connection con = DriverManager.getConnection("jdbc:sqlserver://filosuvm.database.windows.net:1433;database=filmosuvm;user=uvmroot@filosuvm;password=oHi$ms%6l&MT;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
+       PreparedStatement pst = con.prepareStatement("Select * from usuarios where ididentificacion = ?");
+       pst.setString(1, txtUser.getText().trim());
+       ResultSet rs = pst.executeQuery(); 
+       if(rs.next()&& rs.getString("contrasena").equals(txtPassword.getText()) ){
+           Home v1 = new Home();
+           v1.setVisible(true);
+           this.setVisible(false);
+       }else{
+           JOptionPane.showMessageDialog(null,"La contraseña o el usuario es incorrecto");
+       }
+       /**String emptyString= "";
        String user = txtUser.getText();
        char[] password = txtPassword.getPassword();
        Encode md5 = new Encode();
@@ -230,11 +249,11 @@ public class Login extends java.awt.Frame {
            }else{
                JOptionPane.showMessageDialog(null,"La contraseña o el usuario es incorrecto");
            }
-       }
+       }**/
        
        }catch(Exception e){
            System.out.println(e);
-       }
+       } 
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
@@ -244,6 +263,10 @@ public class Login extends java.awt.Frame {
     private void closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeActionPerformed
         System.exit(0);
     }//GEN-LAST:event_closeActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
     
 
     

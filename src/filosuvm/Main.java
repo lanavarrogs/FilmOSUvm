@@ -7,8 +7,12 @@ package filosuvm;
 
 /**
  *
- * @author luisn
+ * @author jorge
  */
-class IconImage {
-    
+public class Main {
+    public static void main (String []args)
+    {
+        Login v1 = new Login();
+        v1.setVisible(true);
+    }
 }
