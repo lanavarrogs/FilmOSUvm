@@ -5,6 +5,8 @@
  */
 package filosuvm;
 
+import java.awt.Cursor;
+import static java.awt.Frame.HAND_CURSOR;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -22,6 +24,8 @@ public class Movies extends java.awt.Frame {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         setInfoMovie();
+        btnReturn.setCursor(new Cursor(HAND_CURSOR));
+        lblClose.setCursor(new Cursor(HAND_CURSOR));
     }
     
     
@@ -47,6 +51,10 @@ public class Movies extends java.awt.Frame {
 
         jPanel1 = new javax.swing.JPanel();
         Header = new javax.swing.JPanel();
+        icontoolbar = new javax.swing.JPanel();
+        lblClose = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        btnReturn = new javax.swing.JButton();
         BuyInfo = new javax.swing.JPanel();
         lblImage = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
@@ -54,7 +62,6 @@ public class Movies extends java.awt.Frame {
         txtDescription = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         Description = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
 
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -67,6 +74,39 @@ public class Movies extends java.awt.Frame {
 
         Header.setBackground(new java.awt.Color(28, 34, 43));
         Header.setPreferredSize(new java.awt.Dimension(100, 60));
+        Header.setLayout(new java.awt.BorderLayout());
+
+        icontoolbar.setBackground(new java.awt.Color(28, 34, 43));
+        icontoolbar.setPreferredSize(new java.awt.Dimension(400, 100));
+        icontoolbar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/delete_32px.png"))); // NOI18N
+        lblClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCloseMouseClicked(evt);
+            }
+        });
+        icontoolbar.add(lblClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 50, 60));
+
+        Header.add(icontoolbar, java.awt.BorderLayout.EAST);
+
+        jPanel3.setBackground(new java.awt.Color(28, 34, 43));
+        jPanel3.setForeground(new java.awt.Color(28, 34, 43));
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        btnReturn.setBackground(new java.awt.Color(28, 34, 43));
+        btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/left-arrow.png"))); // NOI18N
+        btnReturn.setBorder(null);
+        btnReturn.setPreferredSize(new java.awt.Dimension(100, 23));
+        btnReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReturnActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnReturn, java.awt.BorderLayout.WEST);
+
+        Header.add(jPanel3, java.awt.BorderLayout.CENTER);
+
         jPanel1.add(Header, java.awt.BorderLayout.PAGE_START);
 
         BuyInfo.setBackground(new java.awt.Color(246, 19, 64));
@@ -102,15 +142,6 @@ public class Movies extends java.awt.Frame {
         jPanel1.add(BuyInfo, java.awt.BorderLayout.WEST);
 
         Description.setMinimumSize(new java.awt.Dimension(400, 10));
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        Description.add(jButton1);
-
         jPanel1.add(Description, java.awt.BorderLayout.CENTER);
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -125,11 +156,15 @@ public class Movies extends java.awt.Frame {
         System.exit(0);
     }//GEN-LAST:event_exitForm
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-          Home newWindow = new Home();
-          newWindow.setVisible(true);
-          this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
+       Home v1 = new Home();
+       v1.setVisible(true);
+       this.setVisible(false);
+    }//GEN-LAST:event_btnReturnActionPerformed
+
+    private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_lblCloseMouseClicked
     
 
     /**
@@ -148,10 +183,13 @@ public class Movies extends java.awt.Frame {
     private javax.swing.JPanel BuyInfo;
     private javax.swing.JPanel Description;
     private javax.swing.JPanel Header;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnReturn;
+    private javax.swing.JPanel icontoolbar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTextArea txtDescription;

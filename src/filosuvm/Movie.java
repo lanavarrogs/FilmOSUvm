@@ -15,12 +15,14 @@ public class Movie {
     private String kind;
     private String schedule;
     private String description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas auctor dictum dignissim. Duis mollis sollicitudin odio, sed bibendum purus elementum a";
+    private String rating;
     
-    public Movie(String name, String image, String kind,String schedule){
+    public Movie(String name, String image, String kind,String schedule, String rating){
         this.name = name;
         this.image = image;
         this.kind = kind;
         this.schedule = schedule;
+        this.rating = rating;
     }
     
     public String getName(){

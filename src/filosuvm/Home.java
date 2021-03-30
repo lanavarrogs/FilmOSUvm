@@ -281,7 +281,7 @@ public class Home extends java.awt.Frame {
         
         //Put all the images in the Buttons
         for(int i =0; i<list.length;i++){
-               movies.add(new Movie(nameList[i],list[i],"action","20:00"));
+               movies.add(new Movie(nameList[i],list[i],"action","20:00","A"));
                reziseImage(list[i],i);
         }
          
