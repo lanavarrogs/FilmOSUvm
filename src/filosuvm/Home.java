@@ -18,7 +18,8 @@ import javax.swing.JFrame;
  * @author luisn
  */
 public class Home extends java.awt.Frame {
-
+    public static Movie movie;
+    ArrayList <Movie> movies = new ArrayList<>();
     /**
      * Creates new form Home
      */
@@ -174,22 +175,72 @@ public class Home extends java.awt.Frame {
             }
         });
         MoviePanel.add(bntMovie1);
+
+        bntMovie2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntMovie2ActionPerformed(evt);
+            }
+        });
         MoviePanel.add(bntMovie2);
 
-        jButton12.setActionCommand("");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
         MoviePanel.add(jButton12);
+
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
         MoviePanel.add(jButton11);
+
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
         MoviePanel.add(jButton15);
+
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
         MoviePanel.add(jButton13);
+
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
         MoviePanel.add(jButton14);
+
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
         MoviePanel.add(jButton16);
 
-        jButton17.setActionCommand("");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
         MoviePanel.add(jButton17);
 
         pnlContent.add(MoviePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1620, 1020));
+
+        CandyPanel.setBackground(new java.awt.Color(204, 255, 153));
         pnlContent.add(CandyPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1620, 1020));
+
+        ReportPanel.setBackground(new java.awt.Color(0, 102, 255));
         pnlContent.add(ReportPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1620, 1020));
+
+        jPanel11.setBackground(new java.awt.Color(102, 255, 102));
         pnlContent.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1620, 1020));
 
         pnlRoot.add(pnlContent, java.awt.BorderLayout.CENTER);
@@ -201,7 +252,9 @@ public class Home extends java.awt.Frame {
     
     
     public void getMovies(){
-    
+        
+       
+        
         String []list = {
             "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img1.jpg",
             "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img2.jpg",
@@ -214,13 +267,24 @@ public class Home extends java.awt.Frame {
             "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img9.jpg",
             
         };
+        String []nameList = {
+            "Batman",
+            "Godzilla vs Kong",
+            "Rapidos y Furiosos",
+            "Justice League",
+            "Harry Potter",
+            "Animales Fantasticos",
+            "Cindy la Regia",
+            "Golpe Bajo",
+            "Sinister"
+        };
         
-        
+        //Put all the images in the Buttons
         for(int i =0; i<list.length;i++){
+               movies.add(new Movie(nameList[i],list[i],"action","20:00"));
                reziseImage(list[i],i);
         }
-        
-        
+         
     }
     
     
@@ -272,8 +336,67 @@ public class Home extends java.awt.Frame {
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void bntMovie1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntMovie1ActionPerformed
-        // TODO add your handling code here:
+        movie = movies.get(0);
+        Movies newWindow = new Movies();
+        newWindow.setVisible(true);
+                this.setVisible(false);
     }//GEN-LAST:event_bntMovie1ActionPerformed
+
+    private void bntMovie2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntMovie2ActionPerformed
+        movie = movies.get(1);
+        Movies newWindow = new Movies();
+        newWindow.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_bntMovie2ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        movie = movies.get(2);
+        Movies newWindow = new Movies();
+        newWindow.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        movie = movies.get(3);
+        Movies newWindow = new Movies();
+        newWindow.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        movie = movies.get(4);
+        Movies newWindow = new Movies();
+        newWindow.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        movie = movies.get(5);
+        Movies newWindow = new Movies();
+        newWindow.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        movie = movies.get(6);
+        Movies newWindow = new Movies();
+        newWindow.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        movie = movies.get(7);
+        Movies newWindow = new Movies();
+        newWindow.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        movie = movies.get(8);
+        Movies newWindow = new Movies();
+        newWindow.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton17ActionPerformed
 
     /**
      * @param args the command line arguments
