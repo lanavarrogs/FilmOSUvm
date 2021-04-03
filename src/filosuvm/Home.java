@@ -19,16 +19,48 @@ import javax.swing.JFrame;
  */
 public class Home extends java.awt.Frame {
     public static Movie movie;
-    ArrayList <Movie> movies = new ArrayList<>();
+    ArrayList <Movie> movies;
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
+        User userLogin = Login.userLogin;
+        String typeUser = userLogin.getType();  
+        System.out.println(typeUser);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         btnClose.setCursor(new Cursor(HAND_CURSOR));
         getMovies();
+        
+        switch(typeUser){
+            case "gerente":
+                btnMovie.setVisible(true);
+                btnCandy.setVisible(true);
+                btnRegister.setVisible(true);
+                btnReport.setVisible(true);
+                break;
+            case "tienda":
+                btnMovie.setVisible(false);
+                btnCandy.setVisible(true);
+                btnRegister.setVisible(false);
+                btnReport.setVisible(false);
+                break;
+            case "cajero":
+                btnMovie.setVisible(true);
+                btnCandy.setVisible(false);
+                btnRegister.setVisible(false);
+                btnReport.setVisible(false);
+                break;
+            default:
+                btnMovie.setVisible(false);
+                btnCandy.setVisible(false);
+                btnRegister.setVisible(false);
+                btnReport.setVisible(false);
+        }
+        
+        
         pack();
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,7 +81,7 @@ public class Home extends java.awt.Frame {
         Movies = new javax.swing.JPanel();
         btnMovie = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        btnRegister = new javax.swing.JButton();
         pnlCandy = new javax.swing.JPanel();
         btnCandy = new javax.swing.JButton();
         pnlContent = new javax.swing.JPanel();
@@ -136,14 +168,14 @@ public class Home extends java.awt.Frame {
         jPanel7.setBackground(new java.awt.Color(246, 19, 64));
         jPanel7.setLayout(new java.awt.BorderLayout());
 
-        jButton3.setBackground(new java.awt.Color(246, 19, 64));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/inmigracion.png"))); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnRegister.setBackground(new java.awt.Color(246, 19, 64));
+        btnRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filosuvm/icons/inmigracion.png"))); // NOI18N
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnRegisterActionPerformed(evt);
             }
         });
-        jPanel7.add(jButton3, java.awt.BorderLayout.CENTER);
+        jPanel7.add(btnRegister, java.awt.BorderLayout.CENTER);
 
         pnlSide.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 300, 140));
 
@@ -253,7 +285,8 @@ public class Home extends java.awt.Frame {
     
     public void getMovies(){
         
-       
+        ConnectionDB conn = new ConnectionDB();
+        movies = conn.getMovies();
         
         String []list = {
             "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img1.jpg",
@@ -267,23 +300,13 @@ public class Home extends java.awt.Frame {
             "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img9.jpg",
             
         };
-        String []nameList = {
-            "Batman",
-            "Godzilla vs Kong",
-            "Rapidos y Furiosos",
-            "Justice League",
-            "Harry Potter",
-            "Animales Fantasticos",
-            "Cindy la Regia",
-            "Golpe Bajo",
-            "Sinister"
-        };
+
         
         //Put all the images in the Buttons
         for(int i =0; i<list.length;i++){
-               movies.add(new Movie(nameList[i],list[i],"action","20:00","A"));
                reziseImage(list[i],i);
         }
+        
          
     }
     
@@ -317,12 +340,12 @@ public class Home extends java.awt.Frame {
         ReportPanel.setVisible(false);
     }//GEN-LAST:event_btnCandyActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         MoviePanel.setVisible(false);
         CandyPanel.setVisible(false);
         jPanel11.setVisible(true);
         ReportPanel.setVisible(false);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
         MoviePanel.setVisible(false);
@@ -339,63 +362,54 @@ public class Home extends java.awt.Frame {
         movie = movies.get(0);
         Movies newWindow = new Movies();
         newWindow.setVisible(true);
-                this.setVisible(false);
     }//GEN-LAST:event_bntMovie1ActionPerformed
 
     private void bntMovie2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntMovie2ActionPerformed
         movie = movies.get(1);
         Movies newWindow = new Movies();
         newWindow.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_bntMovie2ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         movie = movies.get(2);
         Movies newWindow = new Movies();
         newWindow.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         movie = movies.get(3);
         Movies newWindow = new Movies();
-        newWindow.setVisible(true);
-        this.setVisible(false);
+        newWindow.setVisible(true);;
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         movie = movies.get(4);
         Movies newWindow = new Movies();
         newWindow.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         movie = movies.get(5);
         Movies newWindow = new Movies();
         newWindow.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         movie = movies.get(6);
         Movies newWindow = new Movies();
         newWindow.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         movie = movies.get(7);
         Movies newWindow = new Movies();
         newWindow.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
         movie = movies.get(8);
         Movies newWindow = new Movies();
         newWindow.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_jButton17ActionPerformed
 
     /**
@@ -422,6 +436,7 @@ public class Home extends java.awt.Frame {
     private javax.swing.JButton btnCandy;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnMovie;
+    private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnReport;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
@@ -430,7 +445,6 @@ public class Home extends java.awt.Frame {
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;

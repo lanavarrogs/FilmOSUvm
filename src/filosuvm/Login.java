@@ -16,7 +16,7 @@ import java.sql.*;
  * @author luisn
  */
 public class Login extends java.awt.Frame {
-
+    public static User userLogin;
     /**
      * Creates new form Login
      */
@@ -216,44 +216,30 @@ public class Login extends java.awt.Frame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 
-
-       try{
-         
-       Connection con = DriverManager.getConnection("jdbc:sqlserver://filosuvm.database.windows.net:1433;database=filmosuvm;user=uvmroot@filosuvm;password=oHi$ms%6l&MT;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
-       PreparedStatement pst = con.prepareStatement("Select * from usuarios where ididentificacion = ?");
-       pst.setString(1, txtUser.getText().trim());
-       ResultSet rs = pst.executeQuery(); 
-       if(rs.next()&& rs.getString("contrasena").equals(txtPassword.getText()) ){
-           Home v1 = new Home();
-           v1.setVisible(true);
-           this.setVisible(false);
+       String emptyString = "";
+       String username = txtUser.getText();
+       String password = txtPassword.getText();
+               
+       if(emptyString.equals(username) || emptyString.equals(password) ){
+           JOptionPane.showMessageDialog(null, "Los campos usuario y password son obligatorios");
        }else{
-           JOptionPane.showMessageDialog(null,"La contraseña o el usuario es incorrecto");
-       }
-       /**String emptyString= "";
-       String user = txtUser.getText();
-       char[] password = txtPassword.getPassword();
-       Encode md5 = new Encode();
-       String passE = md5.encode("1234");
-       User gerente = new User("Sebastian Gonzalez",passE);
-       String passD = gerente.getPassword();
-       String passGerente = md5.decode(passD);
-       
-       if(emptyString.equals("") && emptyString.equals(new  String(password)) ){
-            JOptionPane.showMessageDialog(null,"Los campos son obligatorios");
-       }else{
-           if(passGerente.equals(new String(password))){
-                Home v1 = new Home();
-                v1.setVisible(true);
-                this.setVisible(false);
+           ConnectionDB conn = new ConnectionDB();
+           userLogin = conn.getUser(username, password);
+           if(userLogin != null){
+               String confirmPassword = userLogin.getPassword();
+               if( confirmPassword.equals(password)){
+                    Home v1 = new Home();
+                    v1.setVisible(true);
+                    this.setVisible(false);
+               }else{
+                    JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos");
+                }
            }else{
-               JOptionPane.showMessageDialog(null,"La contraseña o el usuario es incorrecto");
+               JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos");
            }
-       }**/
+           
+       }
        
-       }catch(Exception e){
-           System.out.println(e);
-       } 
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
