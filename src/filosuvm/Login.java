@@ -228,6 +228,7 @@ public class Login extends java.awt.Frame {
            if(userLogin != null){
                String confirmPassword = userLogin.getPassword();
                if( confirmPassword.equals(password)){
+                    conn.connectionClose();
                     Home v1 = new Home();
                     v1.setVisible(true);
                     this.setVisible(false);

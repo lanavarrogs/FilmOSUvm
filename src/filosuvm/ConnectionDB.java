@@ -5,12 +5,13 @@
  */
 package filosuvm;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -51,42 +52,79 @@ public class ConnectionDB {
             }
         }catch(Exception e){
             System.out.println("Error" + e);
-        }
+        }       
         
         return user;
     }
     
     public ArrayList<Movie> getMovies(){
-        String id;
+        int id;
         String name;
-        String premiere;
-        String schedule;
-        String length;
+        String premiere;;
+        int length;
         String rating;
         String cinemanumber;
+        String src = "";
+        String description;
+        byte []image;
         ArrayList<Movie> listMovies = new ArrayList<>(); 
         
-        String sql_query = "SELECT * FROM  Pelicula";
+        String sql_query = "SELECT * FROM  Pelicula ORDER BY idPelicula";
         try{
             PreparedStatement pst = this.conn.prepareStatement(sql_query);
             ResultSet response = pst.executeQuery();
             
             while(response.next()){
-                id = response.getString("IdPelicula");
+                id = Integer.parseInt(response.getString("IdPelicula"));
                 name = response.getString("NombrePelicula");
                 premiere = response.getString("FechaEstreno");
-                schedule = response.getString("Horario");
                 rating = response.getString("Clasificacion");
-                length = response.getString("Duracion");
+                length = Integer.parseInt(response.getString("Duracion"));
                 cinemanumber = response.getString("NumeroSala");
-                
-                listMovies.add(new Movie(name,"","",schedule,rating));
+                image = response.getBytes("imagen");
+                description = response.getString("descripcion");
+                if(image !=null){
+                    src = "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img"+id+".jpg";
+                    FileOutputStream fis = new FileOutputStream(src);
+                    fis.write(image);
+                    fis.close();
+                }
+                listMovies.add(new Movie(id,name,src,length,premiere,description,rating));
+
             }
         }catch(Exception e){
             System.out.println(e);
         }
         
         return listMovies;
+    }
+    
+    public void setMovie(ByteArrayInputStream image,Movie movie){
+          try{
+              
+            String sql_query = "INSERT INTO Pelicula (idPelicula, NombrePelicula,FechaEstreno,Clasificacion,Duracion,NumeroSala,descripcion,imagen)VALUES (?,?,?,?,?,?,?,?)" ;
+            PreparedStatement pst = this.conn.prepareStatement(sql_query);
+            pst.setString(1,String.valueOf(movie.getId()));
+            pst.setString(2,movie.getName());
+            pst.setString(3,movie.getSchedule());
+            pst.setString(4,movie.getRating());
+            pst.setInt(5, movie.getLenght());
+            pst.setInt(6, 1);
+            pst.setString(7,movie.getDescription());
+            pst.setBlob(8, image);
+            pst.executeQuery();
+          }catch(Exception e){
+              System.out.println(e);
+          }
+         
+    }
+    
+    public void connectionClose(){
+        try{
+         this.conn.close();
+         }catch(Exception e){
+             System.out.println("Hubo un errror mi compa" + e );
+         }
     }
     
 }

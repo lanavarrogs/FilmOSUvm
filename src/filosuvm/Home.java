@@ -5,13 +5,26 @@
  */
 package filosuvm;
 
+
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.DriverManager;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,14 +33,16 @@ import javax.swing.JFrame;
 public class Home extends java.awt.Frame {
     public static Movie movie;
     ArrayList <Movie> movies;
+    String imageSrc;
+    ConnectionDB conn = new ConnectionDB();
+    
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
         User userLogin = Login.userLogin;
-        String typeUser = userLogin.getType();  
-        System.out.println(typeUser);
+        String typeUser = userLogin.getType();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         btnClose.setCursor(new Cursor(HAND_CURSOR));
         getMovies();
@@ -97,7 +112,23 @@ public class Home extends java.awt.Frame {
         jButton17 = new javax.swing.JButton();
         CandyPanel = new javax.swing.JPanel();
         ReportPanel = new javax.swing.JPanel();
-        jPanel11 = new javax.swing.JPanel();
+        RegisterMovie = new javax.swing.JPanel();
+        btnSubmit = new javax.swing.JButton();
+        lblLength = new javax.swing.JLabel();
+        lblNombrePelicula = new javax.swing.JLabel();
+        txtLength = new javax.swing.JTextField();
+        lblPremiere = new javax.swing.JLabel();
+        jdtPremiere = new com.toedter.calendar.JDateChooser();
+        jbcCinema = new javax.swing.JComboBox<>();
+        lblClasificacion1 = new javax.swing.JLabel();
+        txtNameMovie = new javax.swing.JTextField();
+        lblClasificacion2 = new javax.swing.JLabel();
+        jbcRating = new javax.swing.JComboBox<>();
+        lblRating = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtaDescription = new javax.swing.JTextArea();
+        lblImage = new javax.swing.JLabel();
+        btnChooseFile = new javax.swing.JButton();
 
         jButton7.setText("jButton7");
 
@@ -272,8 +303,79 @@ public class Home extends java.awt.Frame {
         ReportPanel.setBackground(new java.awt.Color(0, 102, 255));
         pnlContent.add(ReportPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1620, 1020));
 
-        jPanel11.setBackground(new java.awt.Color(102, 255, 102));
-        pnlContent.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1620, 1020));
+        RegisterMovie.setBackground(new java.awt.Color(255, 255, 255));
+        RegisterMovie.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnSubmit.setBackground(new java.awt.Color(28, 34, 43));
+        btnSubmit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnSubmit.setForeground(new java.awt.Color(255, 255, 255));
+        btnSubmit.setText("Enviar");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
+        RegisterMovie.add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 890, 800, 80));
+
+        lblLength.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lblLength.setText("Duracion");
+        RegisterMovie.add(lblLength, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, 180, 40));
+
+        lblNombrePelicula.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lblNombrePelicula.setText("Nombre Pelicula");
+        RegisterMovie.add(lblNombrePelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 190, 40));
+        RegisterMovie.add(txtLength, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 500, 500, 40));
+
+        lblPremiere.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lblPremiere.setText("Fecha Estreno");
+        RegisterMovie.add(lblPremiere, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 180, 40));
+        RegisterMovie.add(jdtPremiere, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 500, 40));
+
+        jbcCinema.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jbcCinema.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", " " }));
+        RegisterMovie.add(jbcCinema, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 670, 500, 40));
+
+        lblClasificacion1.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lblClasificacion1.setText("Descripcion");
+        RegisterMovie.add(lblClasificacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 40, 180, 40));
+
+        txtNameMovie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameMovieActionPerformed(evt);
+            }
+        });
+        RegisterMovie.add(txtNameMovie, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 500, 40));
+
+        lblClasificacion2.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lblClasificacion2.setText("Clasificacion");
+        RegisterMovie.add(lblClasificacion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 180, 40));
+
+        jbcRating.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jbcRating.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AA", "A", "B", "B15", "C", "D" }));
+        RegisterMovie.add(jbcRating, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 500, 40));
+
+        lblRating.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lblRating.setText("Numero de Sala");
+        RegisterMovie.add(lblRating, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 600, 180, 40));
+
+        txtaDescription.setColumns(20);
+        txtaDescription.setRows(5);
+        jScrollPane1.setViewportView(txtaDescription);
+
+        RegisterMovie.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 100, 450, 120));
+
+        lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        RegisterMovie.add(lblImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 370, 340, 360));
+
+        btnChooseFile.setText("Elegir una imagen");
+        btnChooseFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChooseFileActionPerformed(evt);
+            }
+        });
+        RegisterMovie.add(btnChooseFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 290, 450, 40));
+
+        pnlContent.add(RegisterMovie, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1620, 1020));
 
         pnlRoot.add(pnlContent, java.awt.BorderLayout.CENTER);
 
@@ -284,30 +386,15 @@ public class Home extends java.awt.Frame {
     
     
     public void getMovies(){
-        
-        ConnectionDB conn = new ConnectionDB();
-        movies = conn.getMovies();
-        
-        String []list = {
-            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img1.jpg",
-            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img2.jpg",
-            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img3.jpg",
-            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img4.jpg",
-            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img5.jpg",
-            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img6.jpg",
-            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img7.jpg",
-            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img8.jpg",
-            "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img9.jpg",
-            
-        };
-
-        
-        //Put all the images in the Buttons
-        for(int i =0; i<list.length;i++){
-               reziseImage(list[i],i);
+        movies = conn.getMovies(); 
+        setImages();
+    }
+    
+    public void setImages(){
+    //Put all the images in the Buttons
+        for(int i =0; i<movies.size();i++){
+               reziseImage(movies.get(i).getImage(),i);
         }
-        
-         
     }
     
     
@@ -319,6 +406,24 @@ public class Home extends java.awt.Frame {
             button.setIcon(icon);
         }
     }
+    
+    
+    public ByteArrayInputStream imageFormat(){
+        ByteArrayInputStream baisForIndex2 = null;
+       try{ 
+            BufferedImage imm = ImageIO.read(new File(imageSrc));
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(imm, "jpg", baos );
+            baos.flush();
+            byte[] immAsBytes = baos.toByteArray();
+            baos.close();
+            baisForIndex2 = new ByteArrayInputStream(immAsBytes);
+       }catch(Exception e){
+           System.out.println("Hubo un error");
+       }
+        
+       return baisForIndex2;
+    }
     /**
      * Exit the Application
      */
@@ -329,28 +434,28 @@ public class Home extends java.awt.Frame {
     private void btnMovieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovieActionPerformed
         MoviePanel.setVisible(true);
         CandyPanel.setVisible(false);
-        jPanel11.setVisible(false);
+        RegisterMovie.setVisible(false);
         ReportPanel.setVisible(false);
     }//GEN-LAST:event_btnMovieActionPerformed
 
     private void btnCandyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCandyActionPerformed
         MoviePanel.setVisible(false);
         CandyPanel.setVisible(true);
-        jPanel11.setVisible(false);
+        RegisterMovie.setVisible(false);
         ReportPanel.setVisible(false);
     }//GEN-LAST:event_btnCandyActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         MoviePanel.setVisible(false);
         CandyPanel.setVisible(false);
-        jPanel11.setVisible(true);
+        RegisterMovie.setVisible(true);
         ReportPanel.setVisible(false);
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
         MoviePanel.setVisible(false);
         CandyPanel.setVisible(false);
-        jPanel11.setVisible(false);
+        RegisterMovie.setVisible(false);
         ReportPanel.setVisible(true);
     }//GEN-LAST:event_btnReportActionPerformed
 
@@ -412,6 +517,57 @@ public class Home extends java.awt.Frame {
         newWindow.setVisible(true);
     }//GEN-LAST:event_jButton17ActionPerformed
 
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        try {
+            int id = movies.size();
+            int length = -1;
+            String empty = "";
+            String nameMovie = txtNameMovie.getText(); 
+            String description = txtaDescription.getText();
+            Date premiereDate = jdtPremiere.getDate();
+            String premiere = new SimpleDateFormat("YYYY-MM-dd").format(premiereDate);
+            String lengthValidation = txtLength.getText();
+            String rating = (String) jbcRating.getSelectedItem();
+            String cinema = (String) jbcCinema.getSelectedItem();
+            if(!(lengthValidation.matches("^[0-9]*$"))){
+                JOptionPane.showMessageDialog(null,"El campo duracion solo acepta numeros ");
+            }
+            else if(empty.equals(nameMovie) || empty.equals(description) || empty.equals(premiere)  || imageSrc == null || empty.equals(premiere) || Integer.parseInt(lengthValidation) < 0  || empty.equals(rating) || empty.equals(cinema)  ){
+                JOptionPane.showMessageDialog(null,"Todos los campos son obligatorios ");
+            }else{
+                ByteArrayInputStream baisForIndex2;
+                System.out.println(rating);
+                System.out.println(cinema);
+                length = Integer.parseInt(lengthValidation);
+                Movie movie = new Movie(id,nameMovie,imageSrc,length,premiere,description,rating);
+                baisForIndex2 = this.imageFormat();
+                if(baisForIndex2 !=null){
+                    this.conn.setMovie(baisForIndex2,movie);
+                    this.getMovies();
+                }
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Todos los campos son obligatorios ");
+        }
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void btnChooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseFileActionPerformed
+       try{
+            JFileChooser chooser = new JFileChooser();
+            chooser.showOpenDialog(null);
+            File image = chooser.getSelectedFile();
+            imageSrc = image.getAbsolutePath();
+            ImageIcon icon = new ImageIcon(new ImageIcon(imageSrc).getImage().getScaledInstance(lblImage.getWidth(),lblImage.getHeight(), Image.SCALE_SMOOTH));
+            lblImage.setIcon(icon);
+       }catch(Exception e){
+           JOptionPane.showMessageDialog(null, "Toodos los campos son obligatorios");
+       }
+    }//GEN-LAST:event_btnChooseFileActionPerformed
+
+    private void txtNameMovieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameMovieActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameMovieActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -429,15 +585,18 @@ public class Home extends java.awt.Frame {
     private javax.swing.JPanel Header;
     private javax.swing.JPanel MoviePanel;
     private javax.swing.JPanel Movies;
+    private javax.swing.JPanel RegisterMovie;
     private javax.swing.JPanel ReportPanel;
     private javax.swing.JPanel Reports;
     private javax.swing.JButton bntMovie1;
     private javax.swing.JButton bntMovie2;
     private javax.swing.JButton btnCandy;
+    private javax.swing.JButton btnChooseFile;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnMovie;
     private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnReport;
+    private javax.swing.JButton btnSubmit;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
@@ -447,11 +606,24 @@ public class Home extends java.awt.Frame {
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> jbcCinema;
+    private javax.swing.JComboBox<String> jbcRating;
+    private com.toedter.calendar.JDateChooser jdtPremiere;
+    private javax.swing.JLabel lblClasificacion1;
+    private javax.swing.JLabel lblClasificacion2;
+    private javax.swing.JLabel lblImage;
+    private javax.swing.JLabel lblLength;
+    private javax.swing.JLabel lblNombrePelicula;
+    private javax.swing.JLabel lblPremiere;
+    private javax.swing.JLabel lblRating;
     private javax.swing.JPanel pnlCandy;
     private javax.swing.JPanel pnlContent;
     private javax.swing.JPanel pnlRoot;
     private javax.swing.JPanel pnlSide;
+    private javax.swing.JTextField txtLength;
+    private javax.swing.JTextField txtNameMovie;
+    private javax.swing.JTextArea txtaDescription;
     // End of variables declaration//GEN-END:variables
 }

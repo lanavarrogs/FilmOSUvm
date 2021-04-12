@@ -10,18 +10,21 @@ package filosuvm;
  * @author luisn
  */
 public class Movie {
+    private int id;
     private String name;
     private String image;
-    private String kind;
+    private int  length;
     private String schedule;
-    private String description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas auctor dictum dignissim. Duis mollis sollicitudin odio, sed bibendum purus elementum a";
+    private String description;
     private String rating;
     
-    public Movie(String name, String image, String kind,String schedule, String rating){
+    public Movie(int id,String name, String image,int length,String schedule,String description, String rating){
+        this.id = id;
         this.name = name;
         this.image = image;
-        this.kind = kind;
+        this.length = length;
         this.schedule = schedule;
+        this.description = description;
         this.rating = rating;
     }
     
@@ -33,8 +36,8 @@ public class Movie {
         return this.image;
     }
     
-    public String getKind(){
-        return this.kind;
+    public int getLenght(){
+        return this.length;
     }
     
     public String getSchedule(){
@@ -43,5 +46,12 @@ public class Movie {
     
     public String getDescription(){
         return this.description;
+    }
+    
+    public String getRating(){
+        return this.rating;
+    }
+    public int getId(){
+        return this.id;
     }
 }
