@@ -16,15 +16,20 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -35,6 +40,11 @@ public class Home extends java.awt.Frame {
     ArrayList <Movie> movies;
     String imageSrc;
     ConnectionDB conn = new ConnectionDB();
+     String nomP; 
+     int cant,precio;
+     DefaultTableModel modelo=new DefaultTableModel(); 
+      int id=0;
+      int Tpagar=0;
     
     /**
      * Creates new form Home
@@ -111,6 +121,18 @@ public class Home extends java.awt.Frame {
         jButton16 = new javax.swing.JButton();
         jButton17 = new javax.swing.JButton();
         CandyPanel = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        palomitas = new javax.swing.JButton();
+        refresco = new javax.swing.JButton();
+        nachos = new javax.swing.JButton();
+        barraC = new javax.swing.JButton();
+        helado = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TablaDetalle = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        textTp = new javax.swing.JTextField();
+        eliminarP = new javax.swing.JButton();
         ReportPanel = new javax.swing.JPanel();
         RegisterMovie = new javax.swing.JPanel();
         btnSubmit = new javax.swing.JButton();
@@ -297,7 +319,105 @@ public class Home extends java.awt.Frame {
 
         pnlContent.add(MoviePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1620, 1020));
 
-        CandyPanel.setBackground(new java.awt.Color(204, 255, 153));
+        CandyPanel.setBackground(new java.awt.Color(255, 255, 255));
+        CandyPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        CandyPanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(805, 5, -1, -1));
+
+        palomitas.setBackground(new java.awt.Color(255, 102, 102));
+        palomitas.setForeground(new java.awt.Color(0, 0, 51));
+        palomitas.setText("palomitas");
+        palomitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                palomitasActionPerformed(evt);
+            }
+        });
+        CandyPanel.add(palomitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 120, 50));
+
+        refresco.setBackground(new java.awt.Color(255, 102, 102));
+        refresco.setForeground(new java.awt.Color(0, 0, 51));
+        refresco.setText("refresco");
+        refresco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refrescoActionPerformed(evt);
+            }
+        });
+        CandyPanel.add(refresco, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 120, 50));
+
+        nachos.setBackground(new java.awt.Color(255, 102, 102));
+        nachos.setForeground(new java.awt.Color(0, 0, 51));
+        nachos.setText("nachos");
+        nachos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nachosActionPerformed(evt);
+            }
+        });
+        CandyPanel.add(nachos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 120, 50));
+
+        barraC.setBackground(new java.awt.Color(255, 102, 102));
+        barraC.setForeground(new java.awt.Color(0, 0, 51));
+        barraC.setText("barra de chocolate");
+        barraC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                barraCActionPerformed(evt);
+            }
+        });
+        CandyPanel.add(barraC, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 130, 50));
+
+        helado.setBackground(new java.awt.Color(255, 102, 102));
+        helado.setForeground(new java.awt.Color(0, 0, 51));
+        helado.setText("helado");
+        helado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                heladoActionPerformed(evt);
+            }
+        });
+        CandyPanel.add(helado, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, 120, 50));
+
+        jButton5.setBackground(new java.awt.Color(255, 102, 102));
+        jButton5.setForeground(new java.awt.Color(0, 0, 51));
+        jButton5.setText("realizar venta");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        CandyPanel.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 120, 50));
+
+        TablaDetalle.setBackground(new java.awt.Color(255, 102, 102));
+        TablaDetalle.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "id", "producto", "cantidad", "total"
+            }
+        ));
+        jScrollPane2.setViewportView(TablaDetalle);
+
+        CandyPanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, 590, -1));
+
+        jLabel1.setBackground(new java.awt.Color(255, 102, 102));
+        jLabel1.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel1.setText("total a pagar");
+        CandyPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 70, 20));
+
+        textTp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textTpActionPerformed(evt);
+            }
+        });
+        CandyPanel.add(textTp, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 140, 130, 30));
+
+        eliminarP.setBackground(new java.awt.Color(255, 102, 102));
+        eliminarP.setForeground(new java.awt.Color(0, 0, 51));
+        eliminarP.setText("eliminarP");
+        eliminarP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarPActionPerformed(evt);
+            }
+        });
+        CandyPanel.add(eliminarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, 120, 50));
+
         pnlContent.add(CandyPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1620, 1020));
 
         ReportPanel.setBackground(new java.awt.Color(0, 102, 255));
@@ -568,6 +688,156 @@ public class Home extends java.awt.Frame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameMovieActionPerformed
 
+    private void palomitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_palomitasActionPerformed
+        // TODO add your handling code here:
+        nomP="palomitas";
+        cant=Integer.parseInt(JOptionPane.showInputDialog("ingrese cantidad"));
+        precio=87;
+        agregarP();
+        calcularT();
+
+    }//GEN-LAST:event_palomitasActionPerformed
+
+    private void refrescoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refrescoActionPerformed
+        // TODO add your handling code here:
+        nomP="refresco";
+        cant=Integer.parseInt(JOptionPane.showInputDialog("ingrese cantidad"));
+        precio=65;
+        agregarP();
+        calcularT();
+    }//GEN-LAST:event_refrescoActionPerformed
+
+    private void nachosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nachosActionPerformed
+        // TODO add your handling code here:
+        nomP="nachos";
+        cant=Integer.parseInt(JOptionPane.showInputDialog("ingrese cantidad"));
+        precio=72;
+        agregarP();
+        calcularT();
+        calcularT();
+    }//GEN-LAST:event_nachosActionPerformed
+
+    private void barraCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barraCActionPerformed
+        // TODO add your handling code here:
+        nomP="barra de chocolate";
+        cant=Integer.parseInt(JOptionPane.showInputDialog("ingrese cantidad"));
+        precio=45;
+        agregarP();
+        calcularT();
+
+    }//GEN-LAST:event_barraCActionPerformed
+
+    private void heladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heladoActionPerformed
+        nomP="helado";
+        cant=Integer.parseInt(JOptionPane.showInputDialog("ingrese cantidad"));
+        precio=56;
+        agregarP();
+        calcularT();
+    }//GEN-LAST:event_heladoActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        calcularT();
+        JOptionPane.showMessageDialog(null,generarTick()+"\n venta realizada,total a pagar:"+textTp.getText());
+        textTp.setText("");
+        liberarStock();
+        limpiarTable();
+     
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void textTpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textTpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textTpActionPerformed
+
+    private void eliminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarPActionPerformed
+        // TODO add your handling code here:
+        int fila = TablaDetalle.getSelectedRow();
+        if (fila >= 0) {
+            modelo.removeRow(fila);
+        }
+        calcularT();
+    }//GEN-LAST:event_eliminarPActionPerformed
+public String generarTick(){
+    String ticket="";
+     ticket="cine uvm sanRafael \n";
+     for(int i=0;i<TablaDetalle.getRowCount();i++)
+    {  
+        ticket+="nombreP: "+TablaDetalle.getValueAt(i,1).toString()+"\n cantidad: "+TablaDetalle.getValueAt(i,2).toString()+"\n total$: "+TablaDetalle.getValueAt(i,3).toString()+"\n-------------------------\n";
+        
+       
+    }
+     return ticket;
+}
+    void agregarP(){
+        modelo=(DefaultTableModel)TablaDetalle.getModel();
+        String sql="";
+        
+        id++;
+        int total= cant*precio;
+        ArrayList lista=new ArrayList();
+        ConnectionDB conn = new ConnectionDB();
+          ResultSet rs=conn.buscar("select Cantidad from Dulceria where NombreProducto='"+nomP+"'");
+        
+         try{
+            if(rs.next()){
+                  if(cant<=rs.getInt(1)){
+                      
+                  
+                      lista.add(id);
+                      lista.add(nomP);
+                      lista.add(cant);
+                      lista.add(total);
+                      Object[] ob=new Object[4];
+                      ob[0]=lista.get(0);
+                       ob[1]=lista.get(1);
+                        ob[2]=lista.get(2);
+                         ob[3]=lista.get(3);
+                         modelo.addRow(ob);
+                         TablaDetalle.setModel(modelo);
+                  }
+                  else{
+                       JOptionPane.showMessageDialog(null,"STACK INSUFICIENTE");
+                  }
+            }
+                  
+        }
+         catch (SQLException ex) {
+           
+     
+        }   
+}
+void limpiarTable(){
+    id=0;
+        for(int i=0;i<TablaDetalle.getRowCount();i++)
+    {
+      modelo.removeRow(i);
+      i-=1;
+    }
+    
+}
+void liberarStock(){
+     for(int i=0;i<TablaDetalle.getRowCount();i++)
+    {
+        ConnectionDB conn = new ConnectionDB();
+          
+       int r=conn.editar("update Dulceria set Cantidad=Cantidad-"+TablaDetalle.getValueAt(i,2).toString()+" where NombreProducto='"+TablaDetalle.getValueAt(i,1).toString()+"'");
+        
+    }
+}
+void  calcularT(){
+    Tpagar=0;
+    for(int i=0;i<TablaDetalle.getRowCount();i++)
+    {
+        
+        Tpagar+=Integer.parseInt (TablaDetalle.getValueAt(i,3).toString());
+        
+    }
+    textTp.setText("$"+Tpagar);
+  
+   
+}
+    
     /**
      * @param args the command line arguments
      */
@@ -588,6 +858,8 @@ public class Home extends java.awt.Frame {
     private javax.swing.JPanel RegisterMovie;
     private javax.swing.JPanel ReportPanel;
     private javax.swing.JPanel Reports;
+    private javax.swing.JTable TablaDetalle;
+    private javax.swing.JButton barraC;
     private javax.swing.JButton bntMovie1;
     private javax.swing.JButton bntMovie2;
     private javax.swing.JButton btnCandy;
@@ -597,6 +869,8 @@ public class Home extends java.awt.Frame {
     private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnReport;
     private javax.swing.JButton btnSubmit;
+    private javax.swing.JButton eliminarP;
+    private javax.swing.JButton helado;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
@@ -604,10 +878,14 @@ public class Home extends java.awt.Frame {
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
+    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox<String> jbcCinema;
     private javax.swing.JComboBox<String> jbcRating;
     private com.toedter.calendar.JDateChooser jdtPremiere;
@@ -618,10 +896,14 @@ public class Home extends java.awt.Frame {
     private javax.swing.JLabel lblNombrePelicula;
     private javax.swing.JLabel lblPremiere;
     private javax.swing.JLabel lblRating;
+    private javax.swing.JButton nachos;
+    private javax.swing.JButton palomitas;
     private javax.swing.JPanel pnlCandy;
     private javax.swing.JPanel pnlContent;
     private javax.swing.JPanel pnlRoot;
     private javax.swing.JPanel pnlSide;
+    private javax.swing.JButton refresco;
+    private javax.swing.JTextField textTp;
     private javax.swing.JTextField txtLength;
     private javax.swing.JTextField txtNameMovie;
     private javax.swing.JTextArea txtaDescription;

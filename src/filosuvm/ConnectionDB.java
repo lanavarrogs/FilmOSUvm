@@ -126,5 +126,29 @@ public class ConnectionDB {
              System.out.println("Hubo un errror mi compa" + e );
          }
     }
+    public ResultSet buscar(String consulta){
+        ResultSet tabla=null;
+        try{
+            PreparedStatement ps= conn.prepareStatement(consulta);
+            tabla=ps.executeQuery();
+            //ps.close();
+        }
+        catch(Exception e){
+            
+        }
+     return tabla;   
+    }
+    public int editar(String consulta){
+       int fila=0;
+        try{
+         PreparedStatement ps= conn.prepareStatement(consulta);
+         fila=ps.executeUpdate();
+         ps.close();
+        }
+        catch(Exception e){
+            
+        }
+     return fila;   
+    }
     
 }
