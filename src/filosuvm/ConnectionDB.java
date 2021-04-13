@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -80,11 +81,11 @@ public class ConnectionDB {
                 premiere = response.getString("FechaEstreno");
                 rating = response.getString("Clasificacion");
                 length = Integer.parseInt(response.getString("Duracion"));
-                cinemanumber = response.getString("NumeroSala");
+                cinemanumber = response.getString("idSala");
                 image = response.getBytes("imagen");
                 description = response.getString("descripcion");
                 if(image !=null){
-                    src = "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilOSUvm\\src\\peliculas\\img"+id+".jpg";
+                    src = "C:\\Users\\luisn\\Documents\\NetBeansProjects\\FilmOSUvm\\src\\peliculas\\img"+id+".jpg";
                     FileOutputStream fis = new FileOutputStream(src);
                     fis.write(image);
                     fis.close();
@@ -102,7 +103,7 @@ public class ConnectionDB {
     public void setMovie(ByteArrayInputStream image,Movie movie){
           try{
               
-            String sql_query = "INSERT INTO Pelicula (idPelicula, NombrePelicula,FechaEstreno,Clasificacion,Duracion,NumeroSala,descripcion,imagen)VALUES (?,?,?,?,?,?,?,?)" ;
+            String sql_query = "INSERT INTO Pelicula (idPelicula, NombrePelicula,FechaEstreno,Clasificacion,Duracion,idSala,descripcion,imagen)VALUES (?,?,?,?,?,?,?,?)" ;
             PreparedStatement pst = this.conn.prepareStatement(sql_query);
             pst.setString(1,String.valueOf(movie.getId()));
             pst.setString(2,movie.getName());
@@ -112,11 +113,36 @@ public class ConnectionDB {
             pst.setInt(6, 1);
             pst.setString(7,movie.getDescription());
             pst.setBlob(8, image);
-            pst.executeQuery();
+            ResultSet response= pst.executeQuery();
+            if(response.next()){
+                JOptionPane.showMessageDialog(null,"Los datos se han agregado exitosamente");
+            }else{
+                JOptionPane.showMessageDialog(null,"Hubo un error al introducir los datos intente nuevamente");
+            }
           }catch(Exception e){
               System.out.println(e);
           }
          
+    }
+    
+    public void updateSeats(int asientos){
+        String sql_query = "UPDATE Sala SET TotalAsientos = ? WHERE idSala = ? ";
+    }
+    
+    public int getSeats(int id){
+        int seats = -1;
+        String sql_query = "SELECT TotalAsientos FROM Sala WHERE NumeroSala = ?" ;
+        try{
+            PreparedStatement pst = this.conn.prepareStatement(sql_query);
+            pst.setInt(1,id);
+            ResultSet response = pst.executeQuery();
+            if(response.next()){
+                seats = response.getInt("TotalAsientos");
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return seats;
     }
     
     public void connectionClose(){

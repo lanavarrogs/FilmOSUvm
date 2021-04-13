@@ -10,13 +10,15 @@ import static java.awt.Frame.HAND_CURSOR;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author luisn
  */
 public class Movies extends java.awt.Frame {
-
+    int index = 1;
+    int availableSeats;
     /**
      * Creates new form Movies
      */
@@ -26,6 +28,7 @@ public class Movies extends java.awt.Frame {
         setInfoMovie();
         btnReturn.setCursor(new Cursor(HAND_CURSOR));
         lblClose.setCursor(new Cursor(HAND_CURSOR));
+        getAvailableSeats();
     }
     
     
@@ -37,7 +40,13 @@ public class Movies extends java.awt.Frame {
         txtDescription.setEditable(false);
         txtDescription.setText(movie.getDescription());
     }
-
+    
+    public void getAvailableSeats(){
+      ConnectionDB conn = new ConnectionDB();
+      availableSeats = conn.getSeats(index);
+      txtAvailableSeats.setText(String.valueOf(availableSeats));
+      conn.connectionClose();
+    }
     
     
 
@@ -49,7 +58,7 @@ public class Movies extends java.awt.Frame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        pnlRoot = new javax.swing.JPanel();
         Header = new javax.swing.JPanel();
         icontoolbar = new javax.swing.JPanel();
         lblClose = new javax.swing.JLabel();
@@ -61,7 +70,20 @@ public class Movies extends java.awt.Frame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDescription = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
-        Description = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        TicketInfo = new javax.swing.JPanel();
+        txtSeats = new javax.swing.JTextField();
+        txtAvailableSeats = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jcmbSchedule = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -70,7 +92,7 @@ public class Movies extends java.awt.Frame {
             }
         });
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        pnlRoot.setLayout(new java.awt.BorderLayout());
 
         Header.setBackground(new java.awt.Color(28, 34, 43));
         Header.setPreferredSize(new java.awt.Dimension(100, 60));
@@ -92,6 +114,7 @@ public class Movies extends java.awt.Frame {
 
         jPanel3.setBackground(new java.awt.Color(28, 34, 43));
         jPanel3.setForeground(new java.awt.Color(28, 34, 43));
+        jPanel3.setPreferredSize(new java.awt.Dimension(60, 60));
         jPanel3.setLayout(new java.awt.BorderLayout());
 
         btnReturn.setBackground(new java.awt.Color(28, 34, 43));
@@ -107,20 +130,20 @@ public class Movies extends java.awt.Frame {
 
         Header.add(jPanel3, java.awt.BorderLayout.CENTER);
 
-        jPanel1.add(Header, java.awt.BorderLayout.PAGE_START);
+        pnlRoot.add(Header, java.awt.BorderLayout.PAGE_START);
 
         BuyInfo.setBackground(new java.awt.Color(246, 19, 64));
         BuyInfo.setPreferredSize(new java.awt.Dimension(600, 100));
         BuyInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblImage.setPreferredSize(new java.awt.Dimension(600, 1020));
-        BuyInfo.add(lblImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 450, 440));
+        BuyInfo.add(lblImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 450, 420));
 
         lblTitle.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(255, 255, 255));
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Titulo");
-        BuyInfo.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 410, -1));
+        BuyInfo.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 600, -1));
 
         txtDescription.setBackground(new java.awt.Color(246, 19, 64));
         txtDescription.setColumns(20);
@@ -131,20 +154,94 @@ public class Movies extends java.awt.Frame {
         txtDescription.setBorder(null);
         jScrollPane2.setViewportView(txtDescription);
 
-        BuyInfo.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 720, 460, 240));
+        BuyInfo.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 760, 460, 240));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Descripcion");
-        BuyInfo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 640, 450, -1));
+        jLabel1.setText("A");
+        BuyInfo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 590, 40, -1));
 
-        jPanel1.add(BuyInfo, java.awt.BorderLayout.WEST);
+        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Descripcion");
+        BuyInfo.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 710, 460, -1));
 
-        Description.setMinimumSize(new java.awt.Dimension(400, 10));
-        jPanel1.add(Description, java.awt.BorderLayout.CENTER);
+        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("180 min");
+        BuyInfo.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 650, 110, -1));
 
-        add(jPanel1, java.awt.BorderLayout.CENTER);
+        jLabel4.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Duracion:");
+        BuyInfo.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 650, 120, -1));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Clasificacion:");
+        BuyInfo.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 590, 160, -1));
+
+        pnlRoot.add(BuyInfo, java.awt.BorderLayout.WEST);
+
+        TicketInfo.setBackground(new java.awt.Color(255, 255, 255));
+        TicketInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        TicketInfo.add(txtSeats, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, 320, 40));
+
+        txtAvailableSeats.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        txtAvailableSeats.setText("Asientos Disponibles");
+        TicketInfo.add(txtAvailableSeats, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 300, 230, -1));
+
+        jButton1.setBackground(new java.awt.Color(28, 34, 43));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Comprar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        TicketInfo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 730, 590, 100));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
+        jLabel8.setText("Total:");
+        TicketInfo.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 600, 140, 50));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
+        jLabel9.setText("240");
+        TicketInfo.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 600, -1, -1));
+
+        jcmbSchedule.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8:00 ---------- Sala1", "16:00 ---------- Sala2", "21:00 ---------- Sala3" }));
+        jcmbSchedule.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcmbScheduleItemStateChanged(evt);
+            }
+        });
+        jcmbSchedule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcmbScheduleActionPerformed(evt);
+            }
+        });
+        TicketInfo.add(jcmbSchedule, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 490, 310, 40));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        jLabel10.setText("Horario");
+        TicketInfo.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 420, 350, 30));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        jLabel11.setText("No. Boletos");
+        TicketInfo.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 350, -1));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        jLabel12.setText("Asientos Disponibles:");
+        TicketInfo.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 240, 230, -1));
+
+        pnlRoot.add(TicketInfo, java.awt.BorderLayout.CENTER);
+
+        add(pnlRoot, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -163,6 +260,29 @@ public class Movies extends java.awt.Frame {
     private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
         System.exit(0);
     }//GEN-LAST:event_lblCloseMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      int index;
+      int seats;
+      index = jcmbSchedule.getSelectedIndex();
+      seats = Integer.parseInt(txtSeats.getText());
+      if (seats > availableSeats ){
+          JOptionPane.showMessageDialog(null,"No hay asientos disponibles");
+      }else{
+          availableSeats -=seats;
+      }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    
+    private void jcmbScheduleItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcmbScheduleItemStateChanged
+  
+    }//GEN-LAST:event_jcmbScheduleItemStateChanged
+
+    private void jcmbScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmbScheduleActionPerformed
+        index = jcmbSchedule.getSelectedIndex() + 1;
+        System.out.println(index);
+        this.getAvailableSeats();
+    }//GEN-LAST:event_jcmbScheduleActionPerformed
     
 
     /**
@@ -179,17 +299,30 @@ public class Movies extends java.awt.Frame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BuyInfo;
-    private javax.swing.JPanel Description;
     private javax.swing.JPanel Header;
+    private javax.swing.JPanel TicketInfo;
     private javax.swing.JButton btnReturn;
     private javax.swing.JPanel icontoolbar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JComboBox<String> jcmbSchedule;
     private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JPanel pnlRoot;
+    private javax.swing.JLabel txtAvailableSeats;
     private javax.swing.JTextArea txtDescription;
+    private javax.swing.JTextField txtSeats;
     // End of variables declaration//GEN-END:variables
 }
