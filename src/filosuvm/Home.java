@@ -8,6 +8,7 @@ package filosuvm;
 
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -30,6 +31,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -42,9 +46,11 @@ public class Home extends java.awt.Frame {
     ConnectionDB conn = new ConnectionDB();
      String nomP; 
      int cant,precio;
-     DefaultTableModel modelo=new DefaultTableModel(); 
+      DefaultTableModel modelo=new DefaultTableModel(); 
       int id=0;
       int Tpagar=0;
+      String rep="";
+      
     
     /**
      * Creates new form Home
@@ -96,6 +102,7 @@ public class Home extends java.awt.Frame {
     private void initComponents() {
 
         jButton7 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
         pnlRoot = new javax.swing.JPanel();
         Header = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -134,6 +141,12 @@ public class Home extends java.awt.Frame {
         textTp = new javax.swing.JTextField();
         eliminarP = new javax.swing.JButton();
         ReportPanel = new javax.swing.JPanel();
+        dulces = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tablaReporte = new javax.swing.JTable();
         RegisterMovie = new javax.swing.JPanel();
         btnSubmit = new javax.swing.JButton();
         lblLength = new javax.swing.JLabel();
@@ -153,6 +166,8 @@ public class Home extends java.awt.Frame {
         btnChooseFile = new javax.swing.JButton();
 
         jButton7.setText("jButton7");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -420,7 +435,54 @@ public class Home extends java.awt.Frame {
 
         pnlContent.add(CandyPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1620, 1020));
 
-        ReportPanel.setBackground(new java.awt.Color(0, 102, 255));
+        ReportPanel.setBackground(new java.awt.Color(255, 255, 255));
+        ReportPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        dulces.setBackground(new java.awt.Color(255, 102, 102));
+        dulces.setText("generar reporte ventas dulceria ");
+        dulces.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dulcesActionPerformed(evt);
+            }
+        });
+        ReportPanel.add(dulces, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 190, 60));
+
+        jButton2.setBackground(new java.awt.Color(255, 102, 102));
+        jButton2.setText("generar reporte venta boletos ");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        ReportPanel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 190, 60));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel2.setText("total venta");
+        ReportPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 60, 120, 20));
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        ReportPanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 60, 120, 20));
+
+        tablaReporte.setBackground(new java.awt.Color(255, 102, 102));
+        tablaReporte.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(tablaReporte);
+
+        ReportPanel.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 670, -1));
+
         pnlContent.add(ReportPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1620, 1020));
 
         RegisterMovie.setBackground(new java.awt.Color(255, 255, 255));
@@ -755,16 +817,45 @@ public class Home extends java.awt.Frame {
         int fila = TablaDetalle.getSelectedRow();
         if (fila >= 0) {
             modelo.removeRow(fila);
+            
         }
         calcularT();
     }//GEN-LAST:event_eliminarPActionPerformed
+
+    private void dulcesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dulcesActionPerformed
+        // TODO add your handling code here:
+       
+          DefaultTableModel modelo2=new DefaultTableModel(); 
+   
+        agregarCom(1,modelo2);
+        reporte(modelo2,"TicketDulceria");
+         calcularTP();
+        
+       
+         
+        
+       
+    }//GEN-LAST:event_dulcesActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+       /* reporte();*/
+         DefaultTableModel modelo2=new DefaultTableModel(); 
+         agregarCom(0,modelo2);
+           reporte(modelo2,"TicketTaquilla");
+           calcularTP();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 public String generarTick(){
     String ticket="";
      ticket="cine uvm sanRafael \n";
      for(int i=0;i<TablaDetalle.getRowCount();i++)
     {  
         ticket+="nombreP: "+TablaDetalle.getValueAt(i,1).toString()+"\n cantidad: "+TablaDetalle.getValueAt(i,2).toString()+"\n total$: "+TablaDetalle.getValueAt(i,3).toString()+"\n-------------------------\n";
-        
+        conn.editar("INSERT INTO TicketDulceria (NombreProducto, TotalBoletos, TotalPrecioBoletos, fecha)" +"VALUES ('"+TablaDetalle.getValueAt(i,1)+"',"+TablaDetalle.getValueAt(i,2).toString()+","+TablaDetalle.getValueAt(i,3).toString()+",'"+obtenerFecha()+"')");
        
     }
      return ticket;
@@ -837,6 +928,123 @@ void  calcularT(){
   
    
 }
+void  calcularTP(){
+    Tpagar=0;
+    for(int i=0;i<tablaReporte.getRowCount();i++)
+    {
+        
+        Tpagar+=Integer.parseInt (tablaReporte.getValueAt(i,3).toString());
+        
+    }
+    jTextField1.setText("$"+Tpagar);
+  
+   
+}
+public String reporte( DefaultTableModel modelo2,String tabla ){
+       String d="";
+       String[] options = {"mensual", "anual", "diario"};
+ String seleccion = (String) JOptionPane.showInputDialog(null, "eliga el tiempo para generar el reporte","tiempo", JOptionPane.DEFAULT_OPTION, null, options, options[0]);
+  ResultSet r=null;
+        String sele="";
+  switch (seleccion) {
+     
+      
+           case "mensual":
+                   String[] op= {"01","02","03","04","05","06","07","08","09","10","11","12"};
+                 sele = (String) JOptionPane.showInputDialog(null, "eliga el tiempo para generar el reporte","tiempo", JOptionPane.DEFAULT_OPTION, null, op, op[0]);
+                r=conn.buscar("SELECT NombreProducto, SUM(TotalBoletos)as cantidad,sum(TotalPrecioBoletos)as total,fecha FROM "+ tabla+" where MONTH(fecha)="+sele+" and year(SYSDATETIME())=year(fecha) GROUP BY NombreProducto,fecha");
+               
+               break;
+           case "anual":
+                       r=conn.buscar("SELECT NombreProducto, SUM(TotalBoletos)as cantidad,sum(TotalPrecioBoletos)as total,fecha FROM "+ tabla+" where year(fecha)=year(SYSDATETIME()) GROUP BY NombreProducto, fecha");
+               break;
+           case "diario":
+               r=conn.buscar("SELECT NombreProducto, SUM(TotalBoletos)as cantidad,sum(TotalPrecioBoletos)as total,fecha FROM "+ tabla +" where fecha='"+obtenerFecha() +"' GROUP BY NombreProducto,fecha");
+               break;
+               
+           default:
+               break;   
+               
+       }
+  System.out.println("SELECT NombreProducto, SUM(TotalBoletos)as cantidad,sum(TotalPrecioBoletos)as total,fecha  FROM "+ tabla+" where MONTH(fecha)="+sele+" and year(SYSDATETIME())=year(fecha) GROUP BY NombreProducto,fecha");
+     
+    
+        try{    
+         
+        int id1=1;
+             if(r != null){
+            while(r.next()){
+               
+                      Object[] ob=new Object[5];
+                      ob[0]=id1;
+                       ob[1]=r.getString(1);
+                        ob[2]=r.getString(2);
+                         ob[3]=r.getString(3);
+                        ob[4]=r.getString(4);
+                         modelo2.addRow(ob);
+                   tablaReporte.setModel(modelo2);
+                  id1++;
+                  }
+            
+                  
+       }
+        }
+         catch (HeadlessException | SQLException ex) {
+           
+     
+        }  
+       
+       
+       
+d=seleccion;       
+return d;
+        
+    
+    
+}
+  public  void agregarCom(int num, DefaultTableModel modelo2 ){
+      
+      if(num==1)
+      {
+           
+         modelo2.addColumn("id_producto");
+         modelo2.addColumn("nombre producto");
+             modelo2.addColumn("cantidad");
+                 modelo2.addColumn("total");
+                     modelo2.addColumn("fecha");
+                         tablaReporte.setModel(modelo2);
+        
+      }
+      else{
+           modelo2.addColumn("id_producto");
+         modelo2.addColumn("nombre boleto");
+             modelo2.addColumn("cantidad");
+                 modelo2.addColumn("total");
+                     modelo2.addColumn("fecha");
+                         tablaReporte.setModel(modelo2);
+        
+      }
+        
+       /*JTableHeader tableHeader = tablaReporte.getTableHeader();
+        TableColumnModel tableColumnModel = tablaReporte.getColumnModel();
+        TableColumn tableColumn = tableColumnModel.getColumn(0);
+        tableColumn.setHeaderValue( "hola prueba" );
+        tableHeader.repaint();*/
+     
+        
+        
+    }
+  
+    public java.sql.Date obtenerFecha()
+    {
+        java.util.Date fecha = new Date();
+   long f=fecha.getTime();
+   java.sql.Date fech= new java.sql.Date(f);
+      return fech;
+    }
+    
+         
+       
     
     /**
      * @param args the command line arguments
@@ -845,9 +1053,11 @@ void  calcularT(){
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Home().setVisible(true);
+                   
             }
         });
     }
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -869,6 +1079,7 @@ void  calcularT(){
     private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnReport;
     private javax.swing.JButton btnSubmit;
+    private javax.swing.JButton dulces;
     private javax.swing.JButton eliminarP;
     private javax.swing.JButton helado;
     private javax.swing.JButton jButton11;
@@ -878,14 +1089,19 @@ void  calcularT(){
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JComboBox<String> jbcCinema;
     private javax.swing.JComboBox<String> jbcRating;
     private com.toedter.calendar.JDateChooser jdtPremiere;
@@ -903,6 +1119,7 @@ void  calcularT(){
     private javax.swing.JPanel pnlRoot;
     private javax.swing.JPanel pnlSide;
     private javax.swing.JButton refresco;
+    private javax.swing.JTable tablaReporte;
     private javax.swing.JTextField textTp;
     private javax.swing.JTextField txtLength;
     private javax.swing.JTextField txtNameMovie;
