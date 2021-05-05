@@ -113,11 +113,9 @@ public class ConnectionDB {
             pst.setInt(6, 1);
             pst.setString(7,movie.getDescription());
             pst.setBlob(8, image);
-            ResultSet response= pst.executeQuery();
-            if(response.next()){
-                JOptionPane.showMessageDialog(null,"Los datos se han agregado exitosamente");
-            }else{
-                JOptionPane.showMessageDialog(null,"Hubo un error al introducir los datos intente nuevamente");
+            int response= pst.executeUpdate();
+            if(response > 0){
+               JOptionPane.showMessageDialog(null, "Pelicula guardada correctamente");
             }
           }catch(Exception e){
               System.out.println(e);
@@ -125,8 +123,16 @@ public class ConnectionDB {
          
     }
     
-    public void updateSeats(int asientos){
+    public void updateSeats(int asientos,int id){
         String sql_query = "UPDATE Sala SET TotalAsientos = ? WHERE idSala = ? ";
+         try{
+            PreparedStatement pst = this.conn.prepareStatement(sql_query);
+            pst.setInt(1,asientos);
+            pst.setInt(2,id);
+            int response = pst.executeUpdate();
+        }catch(Exception e){
+            System.out.println(e);
+        }
     }
     
     public int getSeats(int id){

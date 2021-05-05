@@ -28,7 +28,7 @@ public class Movies extends java.awt.Frame {
         setInfoMovie();
         btnReturn.setCursor(new Cursor(HAND_CURSOR));
         lblClose.setCursor(new Cursor(HAND_CURSOR));
-        getAvailableSeats();
+        lblPrice.setVisible(false);
     }
     
     
@@ -41,7 +41,7 @@ public class Movies extends java.awt.Frame {
         txtDescription.setText(movie.getDescription());
     }
     
-    public void getAvailableSeats(){
+    public void getAvailableSeats(int index){
       ConnectionDB conn = new ConnectionDB();
       availableSeats = conn.getSeats(index);
       txtAvailableSeats.setText(String.valueOf(availableSeats));
@@ -78,8 +78,7 @@ public class Movies extends java.awt.Frame {
         txtSeats = new javax.swing.JTextField();
         txtAvailableSeats = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lblPrice = new javax.swing.JLabel();
         jcmbSchedule = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -194,7 +193,7 @@ public class Movies extends java.awt.Frame {
 
         txtAvailableSeats.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         txtAvailableSeats.setText("Asientos Disponibles");
-        TicketInfo.add(txtAvailableSeats, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 300, 230, -1));
+        TicketInfo.add(txtAvailableSeats, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 330, 230, -1));
 
         jButton1.setBackground(new java.awt.Color(28, 34, 43));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -206,13 +205,9 @@ public class Movies extends java.awt.Frame {
         });
         TicketInfo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 730, 590, 100));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
-        jLabel8.setText("Total:");
-        TicketInfo.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 600, 140, 50));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
-        jLabel9.setText("240");
-        TicketInfo.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 600, -1, -1));
+        lblPrice.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
+        lblPrice.setText("240");
+        TicketInfo.add(lblPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 540, 330, -1));
 
         jcmbSchedule.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8:00 ---------- Sala1", "16:00 ---------- Sala2", "21:00 ---------- Sala3" }));
         jcmbSchedule.addItemListener(new java.awt.event.ItemListener() {
@@ -225,11 +220,11 @@ public class Movies extends java.awt.Frame {
                 jcmbScheduleActionPerformed(evt);
             }
         });
-        TicketInfo.add(jcmbSchedule, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 490, 310, 40));
+        TicketInfo.add(jcmbSchedule, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 430, 320, 40));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         jLabel10.setText("Horario");
-        TicketInfo.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 420, 350, 30));
+        TicketInfo.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 380, 350, 30));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         jLabel11.setText("No. Boletos");
@@ -237,7 +232,7 @@ public class Movies extends java.awt.Frame {
 
         jLabel12.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         jLabel12.setText("Asientos Disponibles:");
-        TicketInfo.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 240, 230, -1));
+        TicketInfo.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 260, 230, -1));
 
         pnlRoot.add(TicketInfo, java.awt.BorderLayout.CENTER);
 
@@ -262,15 +257,33 @@ public class Movies extends java.awt.Frame {
     }//GEN-LAST:event_lblCloseMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      int index;
       int seats;
+      int price = 85;
       index = jcmbSchedule.getSelectedIndex();
-      seats = Integer.parseInt(txtSeats.getText());
-      if (seats > availableSeats ){
+      if(!(txtSeats.getText().matches("^[0-9]*$"))){
+          JOptionPane.showMessageDialog(null,"El campo duracion solo acepta numeros ");
+       }else{
+          seats = Integer.parseInt(txtSeats.getText());
+          if (seats > availableSeats ){
           JOptionPane.showMessageDialog(null,"No hay asientos disponibles");
-      }else{
-          availableSeats -=seats;
+            }else if(seats <= 0 ){ 
+                  JOptionPane.showMessageDialog(null,"Valor de asientos invalido");
+            }else{
+                price *= seats;
+                lblPrice.setText("Total: " + price);
+                lblPrice.setVisible(true);
+                int reply = JOptionPane.showConfirmDialog(null,"El total es de " + price,"Confirmacion",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE );
+                if(reply == JOptionPane.YES_OPTION){
+                    availableSeats -=seats;
+                    ConnectionDB conn = new ConnectionDB();
+                    conn.updateSeats(availableSeats,index+1);
+                    this.getAvailableSeats(index+1);
+                }
+                
+            }
       }
+      
+    
     }//GEN-LAST:event_jButton1ActionPerformed
 
     
@@ -280,8 +293,7 @@ public class Movies extends java.awt.Frame {
 
     private void jcmbScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmbScheduleActionPerformed
         index = jcmbSchedule.getSelectedIndex() + 1;
-        System.out.println(index);
-        this.getAvailableSeats();
+        this.getAvailableSeats(index);
     }//GEN-LAST:event_jcmbScheduleActionPerformed
     
 
@@ -312,13 +324,12 @@ public class Movies extends java.awt.Frame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox<String> jcmbSchedule;
     private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblImage;
+    private javax.swing.JLabel lblPrice;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlRoot;
     private javax.swing.JLabel txtAvailableSeats;
