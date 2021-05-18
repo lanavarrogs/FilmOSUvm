@@ -855,7 +855,7 @@ public String generarTick(){
      for(int i=0;i<TablaDetalle.getRowCount();i++)
     {  
         ticket+="nombreP: "+TablaDetalle.getValueAt(i,1).toString()+"\n cantidad: "+TablaDetalle.getValueAt(i,2).toString()+"\n total$: "+TablaDetalle.getValueAt(i,3).toString()+"\n-------------------------\n";
-        conn.editar("INSERT INTO TicketDulceria (NombreProducto, TotalBoletos, TotalPrecioBoletos, fecha)" +"VALUES ('"+TablaDetalle.getValueAt(i,1)+"',"+TablaDetalle.getValueAt(i,2).toString()+","+TablaDetalle.getValueAt(i,3).toString()+",'"+obtenerFecha()+"')");
+        conn.editar("INSERT INTO TicketDulceria (descripcion, numboletos,  precio, fecha)" +"VALUES ('"+TablaDetalle.getValueAt(i,1)+"',"+TablaDetalle.getValueAt(i,2).toString()+","+TablaDetalle.getValueAt(i,3).toString()+",'"+obtenerFecha()+"')");
        
     }
      return ticket;
@@ -952,21 +952,21 @@ public String reporte( DefaultTableModel modelo2,String tabla ){
            case "mensual":
                    String[] op= {"01","02","03","04","05","06","07","08","09","10","11","12"};
                  sele = (String) JOptionPane.showInputDialog(null, "eliga el tiempo para generar el reporte","tiempo", JOptionPane.DEFAULT_OPTION, null, op, op[0]);
-                r=conn.buscar("SELECT NombreProducto, SUM(TotalBoletos)as cantidad,sum(TotalPrecioBoletos)as total,fecha FROM "+ tabla+" where MONTH(fecha)="+sele+" and year(SYSDATETIME())=year(fecha) GROUP BY NombreProducto,fecha");
+                r=conn.buscar("SELECT descripcion, SUM(numboletos)as cantidad,sum(precio)as total,fecha FROM "+ tabla+" where MONTH(fecha)="+sele+" and year(SYSDATETIME())=year(fecha) GROUP BY descripcion,fecha");
                
                break;
            case "anual":
-                       r=conn.buscar("SELECT NombreProducto, SUM(TotalBoletos)as cantidad,sum(TotalPrecioBoletos)as total,fecha FROM "+ tabla+" where year(fecha)=year(SYSDATETIME()) GROUP BY NombreProducto, fecha");
+                       r=conn.buscar("SELECT descripcion, SUM(numboletos)as cantidad,sum(precio)as total,fecha FROM "+ tabla+" where year(fecha)=year(SYSDATETIME()) GROUP BY descripcion,fecha");
                break;
            case "diario":
-               r=conn.buscar("SELECT NombreProducto, SUM(TotalBoletos)as cantidad,sum(TotalPrecioBoletos)as total,fecha FROM "+ tabla +" where fecha='"+obtenerFecha() +"' GROUP BY NombreProducto,fecha");
+               r=conn.buscar("SELECT descripcion, SUM(numboletos)as cantidad,sum(precio)as total,fecha FROM "+ tabla +" where fecha='"+obtenerFecha() +"' GROUP BY descripcion,fecha");
                break;
                
            default:
                break;   
                
        }
-  System.out.println("SELECT NombreProducto, SUM(TotalBoletos)as cantidad,sum(TotalPrecioBoletos)as total,fecha  FROM "+ tabla+" where MONTH(fecha)="+sele+" and year(SYSDATETIME())=year(fecha) GROUP BY NombreProducto,fecha");
+  System.out.println("SELECT descripcion, SUM(numboletos)as cantidad,sum(precio)as total,fecha  FROM "+ tabla+" where MONTH(fecha)="+sele+" and year(SYSDATETIME())=year(fecha) GROUP BY descripcion,fecha");
      
     
         try{    
