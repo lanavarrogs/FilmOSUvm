@@ -338,65 +338,73 @@ public class Home extends java.awt.Frame {
         CandyPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         CandyPanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(805, 5, -1, -1));
 
-        palomitas.setBackground(new java.awt.Color(255, 102, 102));
-        palomitas.setForeground(new java.awt.Color(0, 0, 51));
+        palomitas.setBackground(new java.awt.Color(28, 34, 43));
+        palomitas.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        palomitas.setForeground(new java.awt.Color(255, 255, 255));
         palomitas.setText("palomitas");
         palomitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 palomitasActionPerformed(evt);
             }
         });
-        CandyPanel.add(palomitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 120, 50));
+        CandyPanel.add(palomitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 140, 60));
 
-        refresco.setBackground(new java.awt.Color(255, 102, 102));
-        refresco.setForeground(new java.awt.Color(0, 0, 51));
+        refresco.setBackground(new java.awt.Color(28, 34, 43));
+        refresco.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        refresco.setForeground(new java.awt.Color(255, 255, 255));
         refresco.setText("refresco");
         refresco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refrescoActionPerformed(evt);
             }
         });
-        CandyPanel.add(refresco, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 120, 50));
+        CandyPanel.add(refresco, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, 140, 60));
 
-        nachos.setBackground(new java.awt.Color(255, 102, 102));
-        nachos.setForeground(new java.awt.Color(0, 0, 51));
+        nachos.setBackground(new java.awt.Color(28, 34, 43));
+        nachos.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        nachos.setForeground(new java.awt.Color(255, 255, 255));
         nachos.setText("nachos");
+        nachos.setMaximumSize(new java.awt.Dimension(135, 25));
+        nachos.setMinimumSize(new java.awt.Dimension(135, 25));
         nachos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nachosActionPerformed(evt);
             }
         });
-        CandyPanel.add(nachos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 120, 50));
+        CandyPanel.add(nachos, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 140, 60));
 
-        barraC.setBackground(new java.awt.Color(255, 102, 102));
-        barraC.setForeground(new java.awt.Color(0, 0, 51));
+        barraC.setBackground(new java.awt.Color(28, 34, 43));
+        barraC.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        barraC.setForeground(new java.awt.Color(255, 255, 255));
         barraC.setText("barra de chocolate");
         barraC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 barraCActionPerformed(evt);
             }
         });
-        CandyPanel.add(barraC, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 130, 50));
+        CandyPanel.add(barraC, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 140, 60));
 
-        helado.setBackground(new java.awt.Color(255, 102, 102));
-        helado.setForeground(new java.awt.Color(0, 0, 51));
+        helado.setBackground(new java.awt.Color(28, 34, 43));
+        helado.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        helado.setForeground(new java.awt.Color(255, 255, 255));
         helado.setText("helado");
         helado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 heladoActionPerformed(evt);
             }
         });
-        CandyPanel.add(helado, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, 120, 50));
+        CandyPanel.add(helado, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 140, 60));
 
-        jButton5.setBackground(new java.awt.Color(255, 102, 102));
-        jButton5.setForeground(new java.awt.Color(0, 0, 51));
+        jButton5.setBackground(new java.awt.Color(28, 34, 43));
+        jButton5.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("realizar venta");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
-        CandyPanel.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 120, 50));
+        CandyPanel.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 330, 140, 60));
 
         TablaDetalle.setBackground(new java.awt.Color(255, 102, 102));
         TablaDetalle.setModel(new javax.swing.table.DefaultTableModel(
@@ -409,63 +417,69 @@ public class Home extends java.awt.Frame {
         ));
         jScrollPane2.setViewportView(TablaDetalle);
 
-        CandyPanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, 590, -1));
+        CandyPanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 590, -1));
 
         jLabel1.setBackground(new java.awt.Color(255, 102, 102));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 51));
-        jLabel1.setText("total a pagar");
-        CandyPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 70, 20));
+        jLabel1.setText("Total a pagar");
+        CandyPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 70, 170, 30));
 
         textTp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textTpActionPerformed(evt);
             }
         });
-        CandyPanel.add(textTp, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 140, 130, 30));
+        CandyPanel.add(textTp, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 110, 130, 30));
 
-        eliminarP.setBackground(new java.awt.Color(255, 102, 102));
-        eliminarP.setForeground(new java.awt.Color(0, 0, 51));
+        eliminarP.setBackground(new java.awt.Color(28, 34, 43));
+        eliminarP.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        eliminarP.setForeground(new java.awt.Color(255, 255, 255));
         eliminarP.setText("eliminarP");
         eliminarP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eliminarPActionPerformed(evt);
             }
         });
-        CandyPanel.add(eliminarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, 120, 50));
+        CandyPanel.add(eliminarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 210, 140, 60));
 
         pnlContent.add(CandyPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1620, 1020));
 
         ReportPanel.setBackground(new java.awt.Color(255, 255, 255));
         ReportPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        dulces.setBackground(new java.awt.Color(255, 102, 102));
+        dulces.setBackground(new java.awt.Color(28, 34, 43));
+        dulces.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        dulces.setForeground(new java.awt.Color(255, 255, 255));
         dulces.setText("generar reporte ventas dulceria ");
         dulces.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dulcesActionPerformed(evt);
             }
         });
-        ReportPanel.add(dulces, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 190, 60));
+        ReportPanel.add(dulces, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 210, 60));
 
-        jButton2.setBackground(new java.awt.Color(255, 102, 102));
+        jButton2.setBackground(new java.awt.Color(28, 34, 43));
+        jButton2.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("generar reporte venta boletos ");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        ReportPanel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 190, 60));
+        ReportPanel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 210, 60));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("total venta");
-        ReportPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 60, 120, 20));
+        ReportPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 160, 120, 20));
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
-        ReportPanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 60, 120, 20));
+        ReportPanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 200, 120, 30));
 
         tablaReporte.setBackground(new java.awt.Color(255, 102, 102));
         tablaReporte.setModel(new javax.swing.table.DefaultTableModel(
@@ -481,7 +495,7 @@ public class Home extends java.awt.Frame {
         ));
         jScrollPane3.setViewportView(tablaReporte);
 
-        ReportPanel.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 670, -1));
+        ReportPanel.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 670, -1));
 
         pnlContent.add(ReportPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1620, 1020));
 
