@@ -123,6 +123,22 @@ public class ConnectionDB {
          
     }
     
+     public void setDulceria(String nombre,int cantidad,int precio){
+        try{
+            String sql_query = "INSERT INTO Dulceria (NombreProducto,Precio,Cantidad) VALUES (?,?,?)" ;
+            PreparedStatement pst = this.conn.prepareStatement(sql_query);
+            pst.setString(1,nombre);
+            pst.setInt(2,precio);
+            pst.setInt(2,cantidad);
+            int response= pst.executeUpdate();
+            if(response > 0){
+               JOptionPane.showMessageDialog(null, "Se ha registrado el dulce con exito");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
     public void updateSeats(int asientos,int id){
         String sql_query = "UPDATE Sala SET TotalAsientos = ? WHERE idSala = ? ";
          try{
@@ -134,6 +150,41 @@ public class ConnectionDB {
             System.out.println(e);
         }
     }
+    
+    public ArrayList<String> getSchedule(int idPelicula){
+           ArrayList<String> schedules = new ArrayList<>();
+          try{
+            String sql_query = "Select Horario FROM Sala WHERE idPelicula= ?" ;
+            PreparedStatement pst = this.conn.prepareStatement(sql_query);
+            pst.setString(1,"1");
+            ResultSet response = pst.executeQuery();
+             while(response.next()){
+                  schedules.add(response.getString("Horario"));
+             }
+          }catch(Exception e){
+              e.printStackTrace();
+          }
+         return schedules;
+    }
+    
+     public void setTicket(String descripcion,int totalBoletos,String fechaCompra,int precio){
+        try{
+            String sql_query = "INSERT INTO TicketTaquilla (descripcion,numBoletos,precio,fecha) VALUES (?,?,?,?)" ;
+            PreparedStatement pst = this.conn.prepareStatement(sql_query);
+            pst.setString(1,descripcion);
+            pst.setInt(2,totalBoletos);
+            pst.setString(3,fechaCompra);
+            pst.setInt(4, precio);
+            int response= pst.executeUpdate();
+            if(response > 0){
+               JOptionPane.showMessageDialog(null, "Su compra ha sido realizada exitosamente");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+     
+     
     
     public int getSeats(int id){
         int seats = -1;

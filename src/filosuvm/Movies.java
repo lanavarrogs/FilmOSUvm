@@ -5,9 +5,14 @@
  */
 package filosuvm;
 
+import static filosuvm.Home.movie;
 import java.awt.Cursor;
 import static java.awt.Frame.HAND_CURSOR;
 import java.awt.Image;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -46,6 +51,21 @@ public class Movies extends java.awt.Frame {
       availableSeats = conn.getSeats(index);
       txtAvailableSeats.setText(String.valueOf(availableSeats));
       conn.connectionClose();
+    }
+    
+    public void getSchedule(){
+        ArrayList<String> schedules = new ArrayList<>();
+        ConnectionDB conn = new ConnectionDB();
+        schedules = conn.getSchedule(movie.getId());
+        jcmbSchedule.removeAllItems();
+        try{
+            for(int i=0; i<schedules.size(); i++){
+                if(i == 0) jcmbSchedule.addItem("----Seleccione una opcion----");
+                jcmbSchedule.addItem(schedules.get(i));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
     
     
@@ -257,7 +277,7 @@ public class Movies extends java.awt.Frame {
     }//GEN-LAST:event_lblCloseMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      int seats;
+     int seats;
       int price = 85;
       index = jcmbSchedule.getSelectedIndex();
       if(!(txtSeats.getText().matches("^[0-9]*$"))){
@@ -272,14 +292,17 @@ public class Movies extends java.awt.Frame {
                 price *= seats;
                 lblPrice.setText("Total: " + price);
                 lblPrice.setVisible(true);
+                Date date = new Date();
                 int reply = JOptionPane.showConfirmDialog(null,"El total es de " + price,"Confirmacion",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE );
                 if(reply == JOptionPane.YES_OPTION){
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String dateSQL = dateFormat.format(date);
                     availableSeats -=seats;
                     ConnectionDB conn = new ConnectionDB();
+                    conn.setTicket("Pelicula: " + movie.getName(),seats,dateSQL,price);
                     conn.updateSeats(availableSeats,index+1);
                     this.getAvailableSeats(index+1);
-                }
-                
+                }   
             }
       }
       
@@ -292,7 +315,7 @@ public class Movies extends java.awt.Frame {
     }//GEN-LAST:event_jcmbScheduleItemStateChanged
 
     private void jcmbScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmbScheduleActionPerformed
-        index = jcmbSchedule.getSelectedIndex() + 1;
+        index = jcmbSchedule.getSelectedIndex();
         this.getAvailableSeats(index);
     }//GEN-LAST:event_jcmbScheduleActionPerformed
     
